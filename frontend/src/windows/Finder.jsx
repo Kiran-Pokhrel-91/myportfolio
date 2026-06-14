@@ -1,5 +1,5 @@
 import WindowControls from "#components/WindowControls";
-import { locations } from "#constants";
+import { FILETYPE_TO_WINDOW, locations } from "#constants";
 import WindowWrapper from "#hoc/WindowWrapper";
 import useLocationStore from "#store/location";
 import useWindowStore from "#store/window";
@@ -16,12 +16,16 @@ const Finder = () => {
   const didDrag = useRef(false);
 
   const openItem = useCallback((item) => {
-    if (item.fileType === "pdf") return openWindow("resume");
     if (item.kind === "folder") return setActiveLocation(item);
     if (["fig", "url"].includes(item.fileType) && item.href) {
       return window.open(item.href, "_blank");
     }
-    openWindow(`${item.fileType}${item.kind}`, item);
+    const baseKey = FILETYPE_TO_WINDOW[item.fileType];
+    if (baseKey) {
+      const { activeLocation } = useLocationStore.getState();
+      const windowKey = `${baseKey}-${activeLocation.id}-${item.id}`;
+      openWindow(windowKey, item);
+    }
   }, [openWindow, setActiveLocation]);
 
   useEffect(() => {

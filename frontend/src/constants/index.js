@@ -38,37 +38,37 @@ const navIcons = [
 const dockApps = [
   {
     id: "finder",
-    name: "Portfolio", // was "Finder"
+    name: "Files",
     icon: "finder.png",
     canOpen: true,
   },
   {
     id: "safari",
-    name: "Articles", // was "Safari"
+    name: "Articles",
     icon: "safari.png",
     canOpen: true,
   },
   {
     id: "photos",
-    name: "Gallery", // was "Photos"
+    name: "Gallery",
     icon: "photos.png",
     canOpen: true,
   },
   {
     id: "contact",
-    name: "Contact", // or "Get in touch"
+    name: "Contact",
     icon: "contact.png",
     canOpen: true,
   },
   {
     id: "terminal",
-    name: "Skills", // was "Terminal"
+    name: "Skills",
     icon: "terminal.png",
     canOpen: true,
   },
   {
     id: "trash",
-    name: "Archive", // was "Trash"
+    name: "Archive",
     icon: "trash.png",
     canOpen: false,
   },
@@ -78,10 +78,6 @@ const techStack = [
   {
     category: "Frontend",
     items: ["React.js", "Next.js", "TypeScript"],
-  },
-  {
-    category: "Mobile",
-    items: ["React Native", "Expo"],
   },
   {
     category: "Styling",
@@ -195,7 +191,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-10 left-5",
-      windowPosition: "top-[5vh] left-5",
+      windowPosition: "top-[8vh] left-5",
       children: [
         {
           id: 1,
@@ -263,7 +259,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-10 left-80",
-      windowPosition: "top-[33vh] left-7",
+      windowPosition: "top-[32vh] left-7",
       children: [
         {
           id: 1,
@@ -363,16 +359,30 @@ export const locations = {
 };
 
 const INITIAL_Z_INDEX = 1000;
+const NAVBAR_Z_INDEX = 10001;
+const DOCK_Z_INDEX = 10000;
 
-const WINDOW_CONFIG = {
-  finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
-  contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
-  resume: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
-  safari: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
-  photos: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
-  terminal: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
-  txtfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
-  imgfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+const WINDOW_KEYS = {
+  FINDER: "finder",
+  CONTACT: "contact",
+  RESUME: "resume",
+  SAFARI: "safari",
+  PHOTOS: "photos",
+  TERMINAL: "terminal",
 };
 
-export { INITIAL_Z_INDEX, WINDOW_CONFIG };
+const STATIC_WINDOW_KEYS = Object.values(WINDOW_KEYS);
+
+const FILETYPE_TO_WINDOW = {
+  txt: "text",
+  img: "image",
+  pdf: WINDOW_KEYS.RESUME,
+};
+
+const windowDefaults = { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null };
+
+const WINDOW_CONFIG = Object.fromEntries(
+  STATIC_WINDOW_KEYS.map((key) => [key, { ...windowDefaults }]),
+);
+
+export { INITIAL_Z_INDEX, NAVBAR_Z_INDEX, DOCK_Z_INDEX, WINDOW_KEYS, STATIC_WINDOW_KEYS, WINDOW_CONFIG, FILETYPE_TO_WINDOW };

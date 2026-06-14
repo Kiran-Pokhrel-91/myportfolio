@@ -1,8 +1,8 @@
+import { blogPosts, WINDOW_KEYS } from "#constants";
 import WindowControls from "#components/WindowControls";
-import { blogPosts } from "#constants";
 import WindowWrapper from "#hoc/WindowWrapper";
 import { ChevronLeft, ChevronRight, Copy, ExternalLink, MoveRight, PanelLeft, Plus, Search, Share, ShieldHalf } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Safari = () => {
   const [url, setUrl] = useState("");
@@ -18,7 +18,7 @@ const Safari = () => {
   return (
     <>
         <div id="window-header">
-            <WindowControls target="safari" />
+            <WindowControls target={WINDOW_KEYS.SAFARI} />
             <PanelLeft className="ml-10 icon" />
             <div className="flex items-center gap-1 ml-5">
                 <ChevronLeft className="icon" />
@@ -70,6 +70,6 @@ const Safari = () => {
   )
 };
 
-const SafariWindow = WindowWrapper(Safari, 'safari')
+const SafariWindow = WindowWrapper(Safari, WINDOW_KEYS.SAFARI)
 
 export default SafariWindow;

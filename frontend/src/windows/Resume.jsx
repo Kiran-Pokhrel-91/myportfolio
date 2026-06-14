@@ -1,32 +1,28 @@
+import { WINDOW_KEYS } from '#constants'
 import WindowControls from '#components/WindowControls'
 import WindowWrapper from '#hoc/WindowWrapper'
 import { Download } from 'lucide-react'
 import { Document, Page, pdfjs } from 'react-pdf'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
-
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Resume = () => {
   const [numPages, setNumPages] = useState(null);
-  const [pageWidth, setPageWidth] = useState(600);
+  const [pageWidth] = useState(() => Math.min(window.innerWidth * 0.35, 560));
 
-  useEffect(() => {
-    setPageWidth(Math.min(window.innerWidth * 0.35, 560));
-  }, []);
-
-  function onDocumentLoadSuccess({ numPages }) {
+  const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
-  }
+  };
 
   const pages = Array.from({ length: numPages || 0 }, (_, i) => i + 1);
 
   return (
     <>
       <div id='window-header'>
-        <WindowControls target="resume" />
+        <WindowControls target={WINDOW_KEYS.RESUME} />
         <h2>Resume.pdf</h2>
         <a
           href="/files/resume.pdf"
@@ -88,6 +84,6 @@ const Resume = () => {
   )
 }
 
-const ResumeWindow = WindowWrapper(Resume, "resume")
+const ResumeWindow = WindowWrapper(Resume, WINDOW_KEYS.RESUME)
 
 export default ResumeWindow

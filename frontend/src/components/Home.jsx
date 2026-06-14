@@ -1,8 +1,8 @@
-import { locations } from '#constants'
+import { locations, WINDOW_KEYS } from '#constants'
 import useLocationStore from '#store/location';
 import useWindowStore from '#store/window';
 import clsx from 'clsx';
-import Draggable from 'gsap/Draggable';
+import { Draggable } from 'gsap/Draggable';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react'
 
@@ -16,7 +16,7 @@ const Home = () => {
     const handleOpenProjectFinder = (project) => {
         if (!didDrag.current) {
             setActiveLocation(project)
-            openWindow("finder")
+            openWindow(WINDOW_KEYS.FINDER)
         }
     }
 

@@ -1,16 +1,15 @@
 import WindowControls from '#components/WindowControls';
-import { gallery, photosLinks } from '#constants';
-import WindowWrapper from '#hoc/WindowWrapper'
-import useWindowStore from '#store/window'
+import { gallery, photosLinks, WINDOW_KEYS } from '#constants';
+import WindowWrapper from '#hoc/WindowWrapper';
+import useWindowStore from '#store/window';
 import { ImageIcon, Mail, Search } from 'lucide-react';
-import React from 'react'
 
 const Photos = () => {
   const {openWindow} = useWindowStore();
   return (
     <>
       <div id='window-header'>
-        <WindowControls target="photos" />
+        <WindowControls target={WINDOW_KEYS.PHOTOS} />
         <div className='w-full flex justify-end items-center gap-3'>
           <Mail className='icon' />
           <Search className='icon' />
@@ -40,7 +39,7 @@ const Photos = () => {
           {gallery.length > 0 ? (
             <ul>
               {gallery.map(({id, img}) => (
-                <li key={id} onClick={() => openWindow("imgfile", {
+                <li key={id} onClick={() => openWindow(WINDOW_KEYS.IMAGE, {
                   id, name: "Gallery image", icon: "/images/image.png",
                   kind: "file", fileType: "img", imageUrl: img,
                 })}>
@@ -60,7 +59,7 @@ const Photos = () => {
   )
 }
 
-const PhotoWindow = WindowWrapper(Photos, "photos");
-PhotoWindow.displayName = "Photos";
+const PhotosWindow = WindowWrapper(Photos, WINDOW_KEYS.PHOTOS);
+PhotosWindow.displayName = "Photos";
 
-export default PhotoWindow;
+export default PhotosWindow;
