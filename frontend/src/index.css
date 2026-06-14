@@ -2,15 +2,74 @@
 
 @import "tailwindcss";
 
+:root {
+  --page-text: #f8fafc;
+  --page-muted: #cbd5e1;
+  --nav-bg: rgba(255, 255, 255, 0.5);
+  --nav-text: #111827;
+  --panel-bg: rgba(255, 255, 255, 0.78);
+  --panel-border: rgba(148, 163, 184, 0.25);
+  --panel-text: #0f172a;
+  --panel-muted: #475569;
+  --dock-bg: rgba(255, 255, 255, 0.15);
+  --dock-border: rgba(255, 255, 255, 0.2);
+  --dock-shadow: rgba(15, 23, 42, 0.28);
+  --tooltip-bg: #bfdbfe;
+  --tooltip-text: #1e3a8a;
+  --menu-bg: rgba(255, 255, 255, 0.92);
+  --menu-border: rgba(148, 163, 184, 0.24);
+  --menu-text: #0f172a;
+  --menu-active: rgba(37, 99, 235, 0.1);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --page-text: #f8fafc;
+  --page-muted: #cbd5e1;
+  --nav-bg: rgba(30, 41, 59, 0.72);
+  --nav-text: #f8fafc;
+  --panel-bg: rgba(30, 41, 59, 0.82);
+  --panel-border: rgba(148, 163, 184, 0.24);
+  --panel-text: #f1f5f9;
+  --panel-muted: #cbd5e1;
+  --dock-bg: rgba(30, 41, 59, 0.66);
+  --dock-border: rgba(255, 255, 255, 0.16);
+  --dock-shadow: rgba(2, 6, 23, 0.45);
+  --tooltip-bg: rgba(30, 41, 59, 0.92);
+  --tooltip-text: #f8fafc;
+  --menu-bg: rgba(30, 41, 59, 0.94);
+  --menu-border: rgba(148, 163, 184, 0.26);
+  --menu-text: #f8fafc;
+  --menu-active: rgba(125, 211, 252, 0.18);
+  color-scheme: dark;
+}
+
 html,
 body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper.png");
+  background-color: #0f172a;
+  background-image: linear-gradient(
+      180deg,
+      rgba(15, 23, 42, 0.1),
+      rgba(15, 23, 42, 0.16)
+    ),
+    url("/images/wallpaper.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  color: var(--page-text);
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+  background-image: linear-gradient(
+      180deg,
+      rgba(2, 6, 23, 0.42),
+      rgba(15, 23, 42, 0.66)
+    ),
+    url("/images/wallpaper.png");
 }
 
 @theme {
@@ -37,7 +96,9 @@ body {
   }
 
   nav {
-    @apply flex justify-between items-center bg-white/50 backdrop-blur-3xl p-2 px-5 select-none;
+    @apply flex justify-between items-center backdrop-blur-3xl p-2 px-5 select-none;
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
 
     div {
       @apply flex items-center max-sm:w-full max-sm:justify-center gap-5;
@@ -57,6 +118,11 @@ body {
 
     time {
       @apply text-sm font-medium text-black;
+      color: inherit;
+    }
+
+    img.icon-hover {
+      @apply transition-[filter,transform] duration-200;
     }
   }
 }
@@ -67,35 +133,82 @@ body {
   }
 
   #welcome {
-    @apply text-gray-200 flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10;
+    @apply flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10;
+    color: var(--page-text);
 
     .small-screen {
-      @apply sm:hidden m-7 bg-red-300/20 backdrop-blur-lg p-3 rounded-md absolute top-10;
+      @apply sm:hidden m-7 backdrop-blur-lg p-3 rounded-md absolute top-10;
+      background-color: var(--panel-bg);
+      border: 1px solid var(--panel-border);
 
       p {
         @apply flex-1 text-[16px] text-center font-roboto text-gray-400;
+        color: var(--panel-muted);
       }
     }
   }
 
   #dock {
-    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
+    @apply fixed bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
 
     .dock-container {
-      @apply bg-white/20 backdrop-blur-md justify-between rounded-2xl p-1.5 flex items-end gap-1.5;
+      @apply flex items-end gap-2 rounded-[28px] px-4 py-3 backdrop-blur-2xl;
+      background-color: var(--dock-bg);
+      border: 1px solid var(--dock-border);
+      box-shadow: 0 24px 80px var(--dock-shadow);
     }
 
     .tooltip {
-      @apply !py-1 !px-3 !w-fit !text-center !text-xs !rounded-md !bg-blue-200 !text-blue-900 !shadow-2xl;
+      @apply py-1 px-3 w-fit text-center text-xs rounded-md shadow-2xl;
+      background-color: var(--tooltip-bg);
+      color: var(--tooltip-text);
+    }
+
+    .dock-item {
+      @apply relative flex items-center justify-center;
+      transform-origin: center bottom;
     }
 
     .dock-icon {
-      @apply size-14 3xl:size-20 cursor-pointer;
+      @apply flex size-14 items-center justify-center rounded-2xl border border-transparent outline-none cursor-pointer 3xl:size-20;
 
       img {
-        @apply object-cover object-center;
+        @apply size-full object-contain drop-shadow-lg;
       }
     }
+  }
+
+  .theme-toggle {
+    @apply flex items-center justify-center rounded-md transition-transform duration-200 hover:scale-105;
+  }
+
+  .theme-menu {
+    @apply absolute right-0 top-12 z-50 min-w-44 overflow-hidden rounded-xl border p-2 shadow-2xl backdrop-blur-2xl;
+    background-color: var(--menu-bg);
+    border-color: var(--menu-border);
+    color: var(--menu-text);
+  }
+
+  .theme-option {
+    @apply flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition-colors duration-150;
+    color: var(--menu-text);
+  }
+
+  .theme-option:hover,
+  .theme-option.is-active {
+    background-color: var(--menu-active);
+  }
+
+  html[data-theme="dark"] nav img.icon-hover {
+    filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(15, 23, 42, 0.45));
+  }
+
+  html[data-theme="dark"] nav .theme-toggle img.icon-hover {
+    filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(15, 23, 42, 0.45));
+  }
+
+  html[data-theme="dark"] #window-header {
+    @apply text-slate-200;
   }
 
   #window-controls {
@@ -392,5 +505,79 @@ body {
         }
       }
     }
+  }
+}
+
+html[data-theme="dark"] {
+  #window-header {
+    background-color: rgba(30, 41, 59, 0.78);
+    border-color: var(--panel-border);
+    color: var(--panel-text);
+  }
+
+  #safari,
+  #terminal,
+  #contact,
+  #photos,
+  #resume,
+  #finder,
+  #txtfile,
+  #imgfile {
+    background-color: var(--panel-bg);
+    color: var(--panel-text);
+    border: 1px solid var(--panel-border);
+  }
+
+  #safari .search,
+  #photos .sidebar,
+  #finder .sidebar,
+  #finder .content,
+  #imgfile .preview {
+    background-color: rgba(15, 23, 42, 0.56);
+    border-color: var(--panel-border);
+  }
+
+  #safari .blog,
+  #terminal .techstack,
+  #contact,
+  #photos .gallery,
+  #finder .content {
+    color: var(--panel-text);
+  }
+
+  #safari .blog h2,
+  #terminal h2,
+  #contact h2,
+  #resume #window-header h2,
+  #txtfile h2,
+  #imgfile #window-header p,
+  #finder .sidebar h3,
+  #photos .sidebar h2 {
+    color: var(--panel-text);
+  }
+
+  #safari .blog .blog-post .content p,
+  #terminal .techstack .footnote,
+  #terminal .techstack .content li h3,
+  #photos .sidebar ul li p,
+  #finder .sidebar ul li,
+  #finder .content li p,
+  #imgfile .preview,
+  #txtfile,
+  #contact ul li p {
+    color: #dbe4ee;
+  }
+
+  #safari .blog .blog-post .content h3,
+  #photos .sidebar ul li:first-child,
+  #finder .sidebar ul .active,
+  #finder .sidebar ul .not-active:hover {
+    color: var(--panel-text);
+  }
+
+  #terminal .techstack .content,
+  #terminal .techstack .footnote,
+  #imgfile .preview {
+    border-color: var(--panel-border);
   }
 }
