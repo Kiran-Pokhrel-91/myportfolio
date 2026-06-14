@@ -5,23 +5,23 @@
 :root {
   --page-text: #f8fafc;
   --page-muted: #cbd5e1;
-  --nav-bg: rgba(255, 255, 255, 0.5);
+  --nav-bg: #ffffff80;
   --nav-text: #111827;
-  --panel-bg: rgba(255, 255, 255, 0.72);
-  --panel-border: rgba(148, 163, 184, 0.25);
+  --panel-bg: #ffffffb8;
+  --panel-border: #94a3b840;
   --panel-text: #0f172a;
   --panel-muted: #475569;
-  --dock-bg: rgba(255, 255, 255, 0.15);
-  --dock-border: rgba(255, 255, 255, 0.2);
-  --dock-shadow: rgba(15, 23, 42, 0.28);
+  --dock-bg: #ffffff26;
+  --dock-border: #ffffff33;
+  --dock-shadow: #0f172a47;
   --tooltip-bg: #bfdbfe;
   --tooltip-text: #1e3a8a;
-  --menu-bg: rgba(255, 255, 255, 0.92);
-  --menu-border: rgba(148, 163, 184, 0.24);
+  --menu-bg: #ffffffeb;
+  --menu-border: #94a3b83d;
   --menu-text: #0f172a;
-  --menu-active: rgba(37, 99, 235, 0.1);
+  --menu-active: #2563eb1a;
   color-scheme: light;
-  --panel-blur: 24px;
+  --panel-blur: 200px;
   --z-navbar: 10001;
   --z-dock: 10000;
 }
@@ -29,23 +29,23 @@
 [data-theme="dark"] {
   --page-text: #f8fafc;
   --page-muted: #cbd5e1;
-  --nav-bg: rgba(30, 41, 59, 0.72);
+  --nav-bg: #1e293bb8;
   --nav-text: #f8fafc;
-  --panel-bg: rgba(30, 41, 59, 0.78);
-  --panel-border: rgba(148, 163, 184, 0.24);
+  --panel-bg: #1e293bc7;
+  --panel-border: #94a3b83d;
   --panel-text: #f1f5f9;
   --panel-muted: #cbd5e1;
-  --dock-bg: rgba(30, 41, 59, 0.66);
-  --dock-border: rgba(255, 255, 255, 0.16);
-  --dock-shadow: rgba(2, 6, 23, 0.45);
-  --tooltip-bg: rgba(30, 41, 59, 0.92);
+  --dock-bg: #1e293ba8;
+  --dock-border: #ffffff29;
+  --dock-shadow: #02061773;
+  --tooltip-bg: #1e293beb;
   --tooltip-text: #f8fafc;
-  --menu-bg: rgba(30, 41, 59, 0.94);
-  --menu-border: rgba(148, 163, 184, 0.26);
+  --menu-bg: #1e293bf0;
+  --menu-border: #94a3b842;
   --menu-text: #f8fafc;
-  --menu-active: rgba(125, 211, 252, 0.18);
+  --menu-active: #7dd3fc2e;
   color-scheme: dark;
-  --panel-blur: 36px;
+  --panel-blur: 200px;
 }
 
 *, *::before, *::after {
@@ -60,8 +60,8 @@ body {
   background-color: #0f172a;
   background-image: linear-gradient(
       180deg,
-      rgba(15, 23, 42, 0.1),
-      rgba(15, 23, 42, 0.16)
+      #0f172a1a,
+      #0f172a29
     ),
     url("/images/wallpaper.png");
   background-size: cover;
@@ -74,8 +74,8 @@ html[data-theme="dark"],
 html[data-theme="dark"] body {
   background-image: linear-gradient(
       180deg,
-      rgba(2, 6, 23, 0.42),
-      rgba(15, 23, 42, 0.66)
+      #0206176b,
+      #0f172aa8
     ),
     url("/images/wallpaper.png");
 }
@@ -220,11 +220,11 @@ html[data-theme="dark"] body {
   }
 
   html[data-theme="dark"] nav img.icon-hover {
-    filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(15, 23, 42, 0.45));
+    filter: brightness(0) invert(1) drop-shadow(0 1px 1px #0f172a73);
   }
 
   html[data-theme="dark"] nav .theme-toggle img.icon-hover {
-    filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(15, 23, 42, 0.45));
+    filter: brightness(0) invert(1) drop-shadow(0 1px 1px #0f172a73);
   }
 
   #window-controls {
@@ -274,7 +274,7 @@ html[data-theme="dark"] body {
     border: 1px solid var(--panel-border);
     backdrop-filter: blur(var(--panel-blur));
     -webkit-backdrop-filter: blur(var(--panel-blur));
-    box-shadow: 0 16px 64px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.04) inset;
+    box-shadow: 0 16px 64px #0000002e, 0 0 0 1px #0000000a inset;
     user-select: none;
   }
 
