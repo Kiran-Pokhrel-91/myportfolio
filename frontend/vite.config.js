@@ -8,6 +8,9 @@ const dir = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
   plugins: [tailwindcss(), react()],
+  optimizeDeps: {
+    include: ['gsap'],
+  },
   resolve: {
     alias: {
       '#components': resolve(dir, 'src/components'),

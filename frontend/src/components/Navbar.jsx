@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { navLinks, navIcons } from "#constants";
+import useWindowStore from "#store/window";
 
 const THEME_STORAGE_KEY = "portfolio-theme";
 
@@ -8,6 +9,7 @@ const getSystemTheme = () =>
   window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
 const Navbar = () => {
+  const { openWindow } = useWindowStore();
   const [themePreference, setThemePreference] = useState(() =>
     window.localStorage.getItem(THEME_STORAGE_KEY) ?? "system",
   );
@@ -97,9 +99,11 @@ const Navbar = () => {
         <p className="font-bold italic">Kiran's Portfolio</p>
 
         <ul>
-          {navLinks.map(({ id, name }) => (
+          {navLinks.map(({ id, name, type }) => (
             <li key={id}>
-              <p>{name}</p>
+              <button type="button" onClick={() => openWindow(type)}>
+                {name}
+              </button>
             </li>
           ))}
         </ul>

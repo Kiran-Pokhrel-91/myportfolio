@@ -7,7 +7,7 @@
   --page-muted: #cbd5e1;
   --nav-bg: rgba(255, 255, 255, 0.5);
   --nav-text: #111827;
-  --panel-bg: rgba(255, 255, 255, 0.78);
+  --panel-bg: rgba(255, 255, 255, 0.72);
   --panel-border: rgba(148, 163, 184, 0.25);
   --panel-text: #0f172a;
   --panel-muted: #475569;
@@ -21,6 +21,7 @@
   --menu-text: #0f172a;
   --menu-active: rgba(37, 99, 235, 0.1);
   color-scheme: light;
+  --panel-blur: 24px;
 }
 
 [data-theme="dark"] {
@@ -28,7 +29,7 @@
   --page-muted: #cbd5e1;
   --nav-bg: rgba(30, 41, 59, 0.72);
   --nav-text: #f8fafc;
-  --panel-bg: rgba(30, 41, 59, 0.82);
+  --panel-bg: rgba(30, 41, 59, 0.78);
   --panel-border: rgba(148, 163, 184, 0.24);
   --panel-text: #f1f5f9;
   --panel-muted: #cbd5e1;
@@ -42,6 +43,11 @@
   --menu-text: #f8fafc;
   --menu-active: rgba(125, 211, 252, 0.18);
   color-scheme: dark;
+  --panel-blur: 36px;
+}
+
+*, *::before, *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.15s ease;
 }
 
 html,
@@ -111,7 +117,7 @@ html[data-theme="dark"] body {
     ul {
       @apply flex items-center gap-5 max-sm:hidden;
 
-      p {
+      p, button {
         @apply text-sm cursor-pointer hover:underline transition-all;
       }
     }
@@ -129,7 +135,10 @@ html[data-theme="dark"] body {
 
 @layer components {
   .icon {
-    @apply p-1 hover:bg-gray-200 rounded hover:cursor-default;
+    @apply p-1 rounded hover:cursor-default;
+    &:hover {
+      background-color: color-mix(in srgb, var(--panel-text) 12%, transparent);
+    }
   }
 
   #welcome {
@@ -207,10 +216,6 @@ html[data-theme="dark"] body {
     filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(15, 23, 42, 0.45));
   }
 
-  html[data-theme="dark"] #window-header {
-    @apply text-slate-200;
-  }
-
   #window-controls {
     @apply flex gap-2;
 
@@ -228,47 +233,71 @@ html[data-theme="dark"] body {
   }
 
   #window-header {
-    @apply flex items-center justify-between px-4 py-3 rounded-t-lg bg-gray-50 border-b border-gray-200 select-none text-sm text-gray-400;
+    @apply flex items-center justify-between px-4 py-3 rounded-t-lg select-none text-sm;
+    background-color: color-mix(in srgb, var(--panel-bg) 70%, transparent);
+    border-bottom: 1px solid var(--panel-border);
+    color: var(--panel-muted);
+  }
+
+  .window-panel {
+    background-color: var(--panel-bg);
+    color: var(--panel-text);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: blur(var(--panel-blur));
+    -webkit-backdrop-filter: blur(var(--panel-blur));
+    box-shadow: 0 16px 64px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.04) inset;
+    user-select: none;
+  }
+
+  .window-panel-sub {
+    background-color: color-mix(in srgb, var(--panel-bg) 60%, transparent);
+    border-color: var(--panel-border);
   }
 
   #safari {
-    @apply w-4xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-4xl absolute top-40 left-2/12 rounded-xl overflow-hidden;
 
     .search {
-      @apply flex items-center gap-3 w-2/3 bg-white border border-gray-300 rounded-lg px-3 py-2;
+      @apply flex items-center gap-3 w-2/3 rounded-lg px-3 py-2;
+      background-color: color-mix(in srgb, var(--panel-bg) 60%, transparent);
+      border: 1px solid var(--panel-border);
 
       input {
-        @apply placeholder:text-gray-400;
+        &::placeholder {
+          color: var(--panel-muted);
+        }
       }
     }
 
     .blog {
-      @apply bg-white p-10 max-w-3xl mx-auto;
+      @apply p-10 max-w-3xl mx-auto;
 
       h2 {
-        @apply text-xl font-bold text-pink-600 mb-10;
+        @apply text-xl font-bold mb-10;
+        color: var(--panel-text);
       }
 
       .blog-post {
-        @apply grid grid-cols-12 space-x-5;
-
-        img {
-          @apply size-full rounded-md object-cover;
-        }
+        @apply py-5 border-b;
+        border-color: var(--panel-border);
 
         .content {
-          @apply col-span-10 space-y-3;
+          @apply space-y-3;
 
           p {
-            @apply text-xs text-gray-500;
+            @apply text-xs;
+            color: var(--panel-muted);
           }
 
           h3 {
-            @apply font-semibold text-base text-gray-800;
+            @apply font-semibold text-base;
+            color: var(--panel-text);
           }
 
           a {
-            @apply text-blue-600 text-xs hover:underline flex items-center gap-3;
+            @apply text-xs hover:underline flex items-center gap-3;
+            color: var(--panel-text);
+            opacity: 0.8;
           }
         }
       }
@@ -276,7 +305,7 @@ html[data-theme="dark"] body {
   }
 
   #terminal {
-    @apply w-xl absolute top-32 left-1/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-xl absolute top-32 left-1/12 rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -290,15 +319,20 @@ html[data-theme="dark"] body {
       }
 
       .content {
-        @apply py-5 my-5 border-y border-dashed space-y-1;
+        @apply py-5 my-5 space-y-1;
+        border-color: var(--panel-border);
+        border-style: dashed;
+        border-width: 1px 0;
 
         li {
           .check {
-            @apply text-[#00A154] w-5;
+            @apply w-5;
+            color: #00A154;
           }
 
           h3 {
-            @apply font-semibold text-[#00A154] w-32 ms-5;
+            @apply font-semibold w-32 ms-5;
+            color: #00A154;
           }
 
           ul {
@@ -308,7 +342,8 @@ html[data-theme="dark"] body {
       }
 
       .footnote {
-        @apply text-[#00A154] space-y-1;
+        @apply space-y-1;
+        color: #00A154;
 
         p {
           @apply flex items-center;
@@ -322,41 +357,24 @@ html[data-theme="dark"] body {
   }
 
   #contact {
-    @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-sm absolute top-32 right-32 rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
     }
-
-    h3 {
-      @apply text-xl font-semibold;
-    }
-
-    ul {
-      @apply flex items-center gap-3;
-
-      li {
-        @apply rounded-lg p-3 w-60 hover:-translate-y-0.5 hover:scale-105 origin-center transition-all duration-300;
-
-        a {
-          @apply space-y-5;
-        }
-
-        p {
-          @apply font-semibold text-sm text-white;
-        }
-      }
-    }
   }
 
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2  rounded-xl overflow-hidden;
 
     .sidebar {
-      @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
+      @apply w-3/12 flex-none flex flex-col p-5;
+      background-color: color-mix(in srgb, var(--panel-bg) 50%, transparent);
+      border-right: 1px solid var(--panel-border);
 
       h2 {
-        @apply text-xs font-medium text-gray-400 mb-1;
+        @apply text-xs font-medium mb-1;
+        color: var(--panel-muted);
       }
 
       ul {
@@ -364,7 +382,8 @@ html[data-theme="dark"] body {
           @apply flex space-y-1 items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
 
           &:first-child {
-            @apply bg-blue-100 text-blue-700;
+            background-color: color-mix(in srgb, var(--panel-text) 12%, transparent);
+            color: var(--panel-text);
           }
 
           img {
@@ -410,7 +429,7 @@ html[data-theme="dark"] body {
   }
 
   #resume {
-    @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-fit h-fit absolute top-16 left-7/12  rounded-xl overflow-hidden;
 
     #window-header {
       h2 {
@@ -420,24 +439,32 @@ html[data-theme="dark"] body {
   }
 
   #finder {
-    @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+    @apply absolute w-3xl left-40 top-20 overflow-hidden rounded-xl;
+    min-height: 320px;
 
     .sidebar {
-      @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
+      @apply w-48 flex flex-col p-5 space-y-3;
+      background-color: color-mix(in srgb, var(--panel-bg) 50%, transparent);
+      border-right: 1px solid var(--panel-border);
 
       h3 {
-        @apply text-xs font-medium text-gray-400 mb-1;
+        @apply text-xs font-medium mb-1;
+        color: var(--panel-muted);
       }
 
       ul {
         @apply space-y-1;
 
         .active {
-          @apply bg-blue-100 text-blue-700;
+          background-color: color-mix(in srgb, var(--panel-text) 12%, transparent);
+          color: var(--panel-text);
         }
 
         .not-active {
-          @apply text-gray-700 hover:bg-gray-200;
+          color: var(--panel-muted);
+          &:hover {
+            background-color: color-mix(in srgb, var(--panel-text) 8%, transparent);
+          }
         }
 
         li {
@@ -447,24 +474,32 @@ html[data-theme="dark"] body {
     }
 
     .content {
-      @apply flex-1 p-8 bg-white max-w-2xl relative;
+      @apply flex-1 p-4 relative;
 
-      li {
-        @apply absolute flex items-center flex-col gap-3;
+      ul {
+        @apply flex flex-wrap content-start gap-3 p-3;
 
-        img {
-          @apply object-contain object-center size-16 relative group-hover:scale-105;
-        }
+        li {
+          @apply flex flex-col items-center gap-1.5 p-2 size-24 h-28 cursor-grab rounded-xl transition-colors;
 
-        p {
-          @apply text-sm text-center font-medium w-40;
+          &:hover {
+            background-color: color-mix(in srgb, var(--panel-text) 8%, transparent);
+          }
+
+          img {
+            @apply size-10 object-contain pointer-events-none;
+          }
+
+          p {
+            @apply text-xs text-center font-medium leading-tight w-full line-clamp-2;
+          }
         }
       }
     }
   }
 
   #txtfile {
-    @apply w-md absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-md absolute top-36 right-32  rounded-xl;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -472,16 +507,18 @@ html[data-theme="dark"] body {
   }
 
   #imgfile {
-    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-xl absolute top-40 left-2/12  rounded-xl;
 
     #window-header {
       p {
-        @apply font-bold text-[#5f6266];
+        @apply font-bold;
+        color: var(--panel-muted);
       }
     }
 
     .preview {
-      @apply p-2 bg-gray-200 max-h-[70vh];
+      @apply p-2 max-h-[70vh];
+      background-color: color-mix(in srgb, var(--panel-bg) 50%, transparent);
 
       img {
         @apply w-full h-fit object-contain object-center;
@@ -510,74 +547,23 @@ html[data-theme="dark"] body {
 
 html[data-theme="dark"] {
   #window-header {
-    background-color: rgba(30, 41, 59, 0.78);
-    border-color: var(--panel-border);
-    color: var(--panel-text);
-  }
-
-  #safari,
-  #terminal,
-  #contact,
-  #photos,
-  #resume,
-  #finder,
-  #txtfile,
-  #imgfile {
-    background-color: var(--panel-bg);
-    color: var(--panel-text);
-    border: 1px solid var(--panel-border);
-  }
-
-  #safari .search,
-  #photos .sidebar,
-  #finder .sidebar,
-  #finder .content,
-  #imgfile .preview {
-    background-color: rgba(15, 23, 42, 0.56);
+    background-color: color-mix(in srgb, var(--panel-bg) 90%, transparent);
     border-color: var(--panel-border);
   }
+}
 
-  #safari .blog,
-  #terminal .techstack,
-  #contact,
-  #photos .gallery,
-  #finder .content {
-    color: var(--panel-text);
-  }
+.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
 
-  #safari .blog h2,
-  #terminal h2,
-  #contact h2,
-  #resume #window-header h2,
-  #txtfile h2,
-  #imgfile #window-header p,
-  #finder .sidebar h3,
-  #photos .sidebar h2 {
-    color: var(--panel-text);
-  }
+.react-pdf__Page {
+  max-width: 100%;
+}
 
-  #safari .blog .blog-post .content p,
-  #terminal .techstack .footnote,
-  #terminal .techstack .content li h3,
-  #photos .sidebar ul li p,
-  #finder .sidebar ul li,
-  #finder .content li p,
-  #imgfile .preview,
-  #txtfile,
-  #contact ul li p {
-    color: #dbe4ee;
-  }
-
-  #safari .blog .blog-post .content h3,
-  #photos .sidebar ul li:first-child,
-  #finder .sidebar ul .active,
-  #finder .sidebar ul .not-active:hover {
-    color: var(--panel-text);
-  }
-
-  #terminal .techstack .content,
-  #terminal .techstack .footnote,
-  #imgfile .preview {
-    border-color: var(--panel-border);
-  }
+.react-pdf__Page canvas {
+  max-width: 100% !important;
+  height: auto !important;
 }
