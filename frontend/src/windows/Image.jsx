@@ -1,33 +1,39 @@
 import WindowControls from "#components/WindowControls";
 import WindowWrapper from "#hoc/WindowWrapper";
 import useWindowStore from "#store/window";
+import { WINDOW_KEYS } from "#constants";
 
-const ImageWindowContent = () => {
-    const {windows} = useWindowStore();
-    const data = windows.imgfile?.data;
+const ImageContent = ({ windowKey }) => {
+  const { windows } = useWindowStore();
+  const data = windows[windowKey]?.data;
 
-    if (!data) return null;
+  if (!data) return null;
 
-    const {name, imageUrl} = data;
+  const { name, imageUrl } = data;
 
-    return (
-        <>
-            <div id="window-header">
-                <WindowControls target="imgfile" />
-                <h2>{name}</h2>
-            </div>
+  return (
+    <>
+      <div id="window-header">
+        <WindowControls target={windowKey} />
+        <h2>{name}</h2>
+      </div>
 
-            <div className="p-5">
-                {imageUrl ? (
-                    <div className="w-full">
-                        <img src={imageUrl} alt={name} className="w-full h-auto max-h-[70vh] object-contain rounded"/>
-                    </div>
-                ) : null}
-            </div>
-        </>
-    )
-}
+      <div className="p-5">
+        {imageUrl ? (
+          <div className="w-full">
+            <img
+              src={imageUrl}
+              alt={name}
+              className="w-full h-auto max-h-[70vh] object-contain rounded"
+            />
+          </div>
+        ) : null}
+      </div>
+    </>
+  );
+};
 
-const ImageWindow = WindowWrapper(ImageWindowContent, "imgfile")
+const ImageWindow = WindowWrapper(ImageContent, WINDOW_KEYS.IMAGE);
 
 export default ImageWindow;
+export { ImageContent };

@@ -1,18 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import dayjs from "dayjs";
+import clsx from "clsx";
 import { navLinks, navIcons } from "#constants";
+import { useTheme } from "#hooks/useTheme";
 import useWindowStore from "#store/window";
-
-const THEME_STORAGE_KEY = "portfolio-theme";
-
-const getSystemTheme = () =>
-  window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
 const Navbar = () => {
   const { openWindow } = useWindowStore();
-  const [themePreference, setThemePreference] = useState(() =>
-    window.localStorage.getItem(THEME_STORAGE_KEY) ?? "system",
-  );
+  const { preference, update: updateTheme } = useTheme();
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const themeButtonRef = useRef(null);
@@ -27,70 +22,29 @@ const Navbar = () => {
   );
 
   useEffect(() => {
-    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-    const initialPreference = storedTheme ?? "system";
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const applyTheme = (preference) => {
-      const resolvedTheme =
-        preference === "system" ? getSystemTheme() : preference;
-
-      document.documentElement.dataset.theme = resolvedTheme;
-      document.documentElement.style.colorScheme = resolvedTheme;
-    };
-
-    setThemePreference(initialPreference);
-    applyTheme(initialPreference);
-
-    const handleSystemThemeChange = () => {
-      const currentPreference =
-        window.localStorage.getItem(THEME_STORAGE_KEY) ?? "system";
-
-      if (currentPreference === "system") {
-        applyTheme("system");
-      }
-    };
-
-    media.addEventListener("change", handleSystemThemeChange);
-
     const handlePointerDown = (event) => {
       const target = event.target;
-
       if (
         menuRef.current?.contains(target) ||
         themeButtonRef.current?.contains(target)
       ) {
         return;
       }
-
       setThemeMenuOpen(false);
     };
 
     const handleEscape = (event) => {
-      if (event.key === "Escape") {
-        setThemeMenuOpen(false);
-      }
+      if (event.key === "Escape") setThemeMenuOpen(false);
     };
 
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleEscape);
 
     return () => {
-      media.removeEventListener("change", handleSystemThemeChange);
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleEscape);
     };
   }, []);
-
-  const updateTheme = (nextTheme) => {
-    const resolvedTheme = nextTheme === "system" ? getSystemTheme() : nextTheme;
-
-    window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-    document.documentElement.dataset.theme = resolvedTheme;
-    document.documentElement.style.colorScheme = resolvedTheme;
-    setThemePreference(nextTheme);
-    setThemeMenuOpen(false);
-  };
 
   return (
     <nav>
@@ -133,14 +87,18 @@ const Navbar = () => {
                         key={optionId}
                         type="button"
                         role="menuitemradio"
-                        aria-checked={themePreference === optionId}
-                        className={`theme-option ${
-                          themePreference === optionId ? "is-active" : ""
-                        }`}
-                        onClick={() => updateTheme(optionId)}
+                        aria-checked={preference === optionId}
+                        className={clsx(
+                          "theme-option",
+                          preference === optionId && "is-active",
+                        )}
+                        onClick={() => {
+                          updateTheme(optionId);
+                          setThemeMenuOpen(false);
+                        }}
                       >
                         <span>{label}</span>
-                        {themePreference === optionId ? <span>•</span> : null}
+                        {preference === optionId ? <span>•</span> : null}
                       </button>
                     ))}
                   </div>

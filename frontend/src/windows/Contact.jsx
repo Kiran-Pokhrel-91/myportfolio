@@ -1,5 +1,5 @@
+import { socials, WINDOW_KEYS } from '#constants'
 import WindowControls from '#components/WindowControls'
-import { socials } from '#constants'
 import { Mail } from 'lucide-react'
 import WindowWrapper from '#hoc/WindowWrapper'
 
@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <>
       <div id='window-header'>
-        <WindowControls target="contact" />
+        <WindowControls target={WINDOW_KEYS.CONTACT} />
         <h2>Contact</h2>
       </div>
 
@@ -61,6 +61,6 @@ const Contact = () => {
   )
 }
 
-const ContactWindow = WindowWrapper(Contact, "contact")
+const ContactWindow = WindowWrapper(Contact, WINDOW_KEYS.CONTACT)
 
 export default ContactWindow

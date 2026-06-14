@@ -1,14 +1,13 @@
+import { techStack, WINDOW_KEYS } from '#constants'
 import WindowControls from '#components/WindowControls'
-import { techStack } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
 import { Check, Flag } from 'lucide-react'
-import React from 'react'
 
 const Terminal = () => {
   return (
     <>
         <div id='window-header'>
-            <WindowControls target="terminal"/>
+            <WindowControls target={WINDOW_KEYS.TERMINAL} />
             <h2>Tech Stack</h2>
         </div>
 
@@ -23,7 +22,7 @@ const Terminal = () => {
                 <p>Technologies</p>
             </div>
 
-            <ul className='content'> 
+            <ul className='content'>
                 {techStack.map(({category, items}) => (
                     <li key={category} className='flex items-center'>
                         <Check className='check' size={20} />
@@ -51,6 +50,6 @@ const Terminal = () => {
   )
 }
 
-const TerminalWindow = WindowWrapper(Terminal, 'terminal')
+const TerminalWindow = WindowWrapper(Terminal, WINDOW_KEYS.TERMINAL)
 
 export default TerminalWindow
