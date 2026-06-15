@@ -1,7 +1,8 @@
+import { useState, useEffect } from "react";
 import { dockApps } from "#constants";
 import useWindowStore from "#store/window";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Tooltip } from "react-tooltip";
 
 const DYNAMIC_APPS = [
@@ -22,7 +23,10 @@ function getTopInstance(windows, prefix) {
   return matches[0] ?? null;
 }
 
+const MOBILE_APPS = ["finder", "safari", "photos", "contact"];
+
 const Dock = () => {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
   const {
     openWindow,
     minimizeWindow,
@@ -32,6 +36,17 @@ const Dock = () => {
   const dockRef = useRef();
 
   useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 640);
+    globalThis.addEventListener("resize", onResize);
+    return () => globalThis.removeEventListener("resize", onResize);
+  }, []);
+
+  const visibleApps = isMobile
+    ? dockApps.filter((a) => MOBILE_APPS.includes(a.id))
+    : dockApps;
+
+  useEffect(() => {
+    if (window.innerWidth < 640) return;
     const dock = dockRef.current;
     if (!dock) return;
 
@@ -108,6 +123,30 @@ const Dock = () => {
       minimizeWindow(app.id);
     }
   };
+
+  if (isMobile) {
+    return (
+      <section className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-evenly gap-4 px-6 py-3.5 bg-[var(--dock-bg)] backdrop-blur-2xl rounded-[32px] border border-[var(--dock-border)] shadow-[0_24px_80px_var(--dock-shadow)] z-50">
+        {visibleApps.map(({ id, name, icon, canOpen }) => {
+          const open = canOpen && windows[id]?.isOpen;
+          return (
+            <div key={id} className="relative flex flex-col items-center">
+              <button
+                type="button"
+                aria-label={name}
+                disabled={!canOpen}
+                onClick={() => toggleApp({ id, canOpen })}
+                className="size-14 flex items-center justify-center rounded-2xl border border-white/20 dark:border-white/10 active:scale-95 transition-transform overflow-hidden"
+              >
+                <img src={`/images/${icon}`} alt={name} className="size-full rounded-2xl" />
+              </button>
+              {open && <span className="absolute -bottom-1.5 size-1.5 rounded-full bg-[var(--accent)]" />}
+            </div>
+          );
+        })}
+      </section>
+    );
+  }
 
   return (
     <section id="dock">

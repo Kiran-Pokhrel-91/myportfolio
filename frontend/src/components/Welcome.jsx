@@ -1,5 +1,7 @@
+import { WINDOW_KEYS } from "#constants";
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
+import useWindowStore from "#store/window";
 
 const FONT_WEIGHTS = {
   subtitle: { min: 100, max: 400, default: 100 },
@@ -67,8 +69,10 @@ const renderText = (text, className, baseWeight = 400) => {
 const Welcome = () => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
+  const { openWindow } = useWindowStore();
 
   useLayoutEffect(() => {
+    if (window.innerWidth < 640) return;
     const cleanupSubtitle = setupTextHover(subtitleRef.current, "subtitle");
     const cleanupTitle = setupTextHover(titleRef.current, "title");
 
@@ -80,20 +84,29 @@ const Welcome = () => {
 
   return (
     <section id="welcome">
-      <p ref={subtitleRef}>
+      <section id="mobile-home" className="hidden max-sm:absolute max-sm:top-12 max-sm:left-0 max-sm:z-10 max-sm:block">
+        <div className="inline-flex items-center gap-5 ml-4 mt-2 px-4 py-3 rounded-2xl">
+          <button className="flex flex-col items-center gap-1" onClick={() => openWindow(WINDOW_KEYS.RESUME)}>
+            <img alt="pages" src="/images/pdf.png" className="size-14" />
+            <span className="text-[11px] font-semibold text-[var(--nav-text)]/90">Resume</span>
+          </button>
+          <button className="flex flex-col items-center gap-1" onClick={() => openWindow(WINDOW_KEYS.TERMINAL)}>
+            <img alt="terminal" src="/images/terminal.png" className="size-16" />
+            <span className="text-[11px] font-semibold text-[var(--nav-text)]/90">Skills</span>
+          </button>
+        </div>
+      </section>
+
+      <p ref={subtitleRef} className="max-sm:mt-0">
         {renderText(
           "Hey, I'm Kiran! Welcome to my",
-          "text-3xl font-georama",
+          "text-xl sm:text-2xl lg:text-3xl font-georama text-center leading-relaxed",
           100,
         )}
       </p>
-      <h1 ref={titleRef} className="mt-7">
-        {renderText("Portfolio", "text-9xl italic font-georama")}
+      <h1 ref={titleRef} className="mt-5 sm:mt-7">
+        {renderText("Portfolio", "text-5xl sm:text-7xl lg:text-9xl font-bold italic font-georama tracking-tight")}
       </h1>
-
-      <div className="small-screen">
-        <p>This portfolio designed for desktop/tablet viewing</p>
-      </div>
     </section>
   );
 };

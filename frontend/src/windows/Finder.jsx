@@ -7,16 +7,26 @@ import clsx from "clsx";
 import { Draggable } from "gsap/Draggable";
 import gsap from "gsap";
 import { Search } from "lucide-react";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const Finder = () => {
   const { openWindow } = useWindowStore();
   const { activeLocation, setActiveLocation } = useLocationStore();
   const contentRef = useRef(null);
   const didDrag = useRef(false);
+  const [breadcrumb, setBreadcrumb] = useState(() => [activeLocation]);
+
+  const navigateTo = useCallback((location) => {
+    setActiveLocation(location);
+    setBreadcrumb([location]);
+  }, [setActiveLocation]);
 
   const openItem = useCallback((item) => {
-    if (item.kind === "folder") return setActiveLocation(item);
+    if (item.kind === "folder") {
+      setActiveLocation(item);
+      setBreadcrumb((prev) => [...prev, item]);
+      return;
+    }
     if (["fig", "url"].includes(item.fileType) && item.href) {
       return window.open(item.href, "_blank");
     }
@@ -27,6 +37,28 @@ const Finder = () => {
       openWindow(windowKey, item);
     }
   }, [openWindow, setActiveLocation]);
+
+  const handleBreadcrumbClick = (index) => {
+    const target = breadcrumb[index];
+    setBreadcrumb((prev) => prev.slice(0, index + 1));
+    setActiveLocation(target);
+  };
+
+  const goHome = () => {
+    setBreadcrumb([]);
+    setActiveLocation(locations.work);
+  };
+
+  const goBack = useCallback(() => {
+    if (breadcrumb.length > 1) {
+      const prev = breadcrumb[breadcrumb.length - 2];
+      setBreadcrumb((prev) => prev.slice(0, -1));
+      setActiveLocation(prev);
+    } else {
+      const { closeWindow } = useWindowStore.getState();
+      closeWindow("finder");
+    }
+  }, [breadcrumb]);
 
   useEffect(() => {
     const grid = contentRef.current;
@@ -72,8 +104,20 @@ const Finder = () => {
   return (
     <>
       <div id="window-header">
-        <WindowControls target="finder" />
-        <Search className="icon" />
+        <WindowControls target="finder" title="Files" onGoBack={goBack} />
+        <div className="hidden sm:flex items-center ml-auto mr-3">
+          <Search size={15} strokeWidth={2} className="text-[var(--panel-muted)]" />
+        </div>
+      </div>
+
+      <div className="breadcrumb hidden max-sm:flex">
+        <button className="text-blue-500 text-sm" onClick={goHome}>Portfolio</button>
+        {breadcrumb.map((loc, i) => (
+          <span key={loc.id} className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right text-gray-400 mx-1" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            <button className="text-blue-500 text-sm line-clamp-1 text-left" onClick={() => handleBreadcrumbClick(i)}>{loc.name}</button>
+          </span>
+        ))}
       </div>
 
       <div className="flex">
@@ -83,10 +127,10 @@ const Finder = () => {
             {Object.values(locations).map((item) => (
               <li
                 className={clsx(
-                  item.id === activeLocation.id ? "active" : "not-active"
+                  breadcrumb.length === 0 ? item.id === activeLocation.id : item.id === breadcrumb[0].id ? "active" : "not-active"
                 )}
                 key={item.id}
-                onClick={() => setActiveLocation(item)}
+                onClick={() => navigateTo(item)}
               >
                 <img src={item.icon} className="w-4" alt={item.name} />
                 <p className="text-sm font-medium truncate">{item.name}</p>
@@ -102,7 +146,7 @@ const Finder = () => {
                   item.id === activeLocation.id ? "active" : "not-active"
                 )}
                 key={item.id}
-                onClick={() => setActiveLocation(item)}
+                onClick={() => openItem(item)}
               >
                 <img src={item.icon} className="w-4" alt={item.name} />
                 <p className="text-sm font-medium truncate">{item.name}</p>
@@ -112,18 +156,22 @@ const Finder = () => {
         </div>
 
         <div className="content">
-          <ul ref={contentRef}>
-            {activeLocation?.children.map((item) => (
-              <li
-                key={item.id}
-                onClick={() => handleItemClick(item)}
-                style={{ cursor: "grab", userSelect: "none" }}
-              >
-                <img src={item.icon} alt={item.name} />
-                <p>{item.name}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="finder-gallery">
+            <ul ref={contentRef}>
+              {activeLocation?.children.map((item) => (
+                <li
+                  key={item.id}
+                  onClick={() => handleItemClick(item)}
+                  style={{ cursor: "grab", userSelect: "none" }}
+                >
+                  <div className="finder-item">
+                    <img src={item.icon} alt={item.name} className="size-16" />
+                    <p className="item-name">{item.name}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>

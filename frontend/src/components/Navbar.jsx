@@ -4,11 +4,13 @@ import clsx from "clsx";
 import { navLinks, navIcons } from "#constants";
 import { useTheme } from "#hooks/useTheme";
 import useWindowStore from "#store/window";
+import { Wifi, Battery } from "lucide-react";
 
 const Navbar = () => {
   const { openWindow } = useWindowStore();
   const { preference, update: updateTheme } = useTheme();
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
   const menuRef = useRef(null);
   const themeButtonRef = useRef(null);
 
@@ -20,6 +22,12 @@ const Navbar = () => {
     ],
     [],
   );
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 640);
+    globalThis.addEventListener("resize", onResize);
+    return () => globalThis.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -45,6 +53,26 @@ const Navbar = () => {
       document.removeEventListener("keydown", handleEscape);
     };
   }, []);
+
+  if (isMobile) {
+    return (
+      <nav className="grid grid-cols-3 items-center h-12 bg-[var(--dock-bg)] backdrop-blur-2xl px-4">
+        <time className="text-[12px] font-bold tracking-wider text-[var(--nav-text)]/80">
+          {dayjs().format("h:mm A")}
+        </time>
+        <div className="flex items-center justify-center">
+          <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5 bg-black/10 dark:bg-white/10 backdrop-blur-3xl border border-white/20 dark:border-white/10 shadow-sm">
+            <img src="/images/logo.svg" alt="Logo" className="size-4" />
+            <span className="text-xs font-bold whitespace-nowrap text-[var(--nav-text)]/90">Kiran's Portfolio</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-end gap-1.5">
+          <Wifi size={13} strokeWidth={2} className="text-[var(--nav-text)]/70" />
+          <Battery size={13} strokeWidth={2} className="text-[var(--nav-text)]/70" />
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <nav>

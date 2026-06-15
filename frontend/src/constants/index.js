@@ -36,42 +36,12 @@ const navIcons = [
 ];
 
 const dockApps = [
-  {
-    id: "finder",
-    name: "Files",
-    icon: "finder.png",
-    canOpen: true,
-  },
-  {
-    id: "safari",
-    name: "Articles",
-    icon: "safari.png",
-    canOpen: true,
-  },
-  {
-    id: "photos",
-    name: "Gallery",
-    icon: "photos.png",
-    canOpen: true,
-  },
-  {
-    id: "contact",
-    name: "Contact",
-    icon: "contact.png",
-    canOpen: true,
-  },
-  {
-    id: "terminal",
-    name: "Skills",
-    icon: "terminal.png",
-    canOpen: true,
-  },
-  {
-    id: "trash",
-    name: "Archive",
-    icon: "trash.png",
-    canOpen: false,
-  },
+  { id: "finder", name: "Files", icon: "finder.png", canOpen: true },
+  { id: "safari", name: "Articles", icon: "safari.png", canOpen: true },
+  { id: "photos", name: "Gallery", icon: "photos.png", canOpen: true },
+  { id: "contact", name: "Contact", icon: "contact.png", canOpen: true },
+  { id: "terminal", name: "Skills", icon: "terminal.png", canOpen: true },
+  { id: "trash", name: "Archive", icon: "trash.png", canOpen: false },
 ];
 
 const techStack = [
@@ -375,6 +345,8 @@ const WINDOW_KEYS = {
   SAFARI: "safari",
   PHOTOS: "photos",
   TERMINAL: "terminal",
+  TEXT: "text",
+  IMAGE: "image",
 };
 
 const STATIC_WINDOW_KEYS = Object.values(WINDOW_KEYS);

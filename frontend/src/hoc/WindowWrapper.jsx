@@ -123,6 +123,16 @@ const WindowWrapper = (Component, defaultKey) => {
       const el = ref.current;
       if (!el) return;
 
+      if (window.innerWidth < 640) {
+        if (isOpen && !isMinimized) {
+          el.style.display = "block";
+          el.style.pointerEvents = "auto";
+        } else {
+          hide(el);
+        }
+        return;
+      }
+
       gsap.killTweensOf(el);
 
       if (isMinimized) {
@@ -142,6 +152,7 @@ const WindowWrapper = (Component, defaultKey) => {
     }, [isOpen, isMinimized]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useLayoutEffect(() => {
+      if (window.innerWidth < 640) return;
       const el = ref.current;
       if (!el || !hasOpened.current) return;
       if (isMaximized) {
@@ -151,6 +162,7 @@ const WindowWrapper = (Component, defaultKey) => {
     }, [isMaximized]);
 
     useEffect(() => {
+      if (window.innerWidth < 640) return;
       if (!isOpen || isMinimized || isMaximized) return;
       const el = ref.current;
       if (!el) return;
