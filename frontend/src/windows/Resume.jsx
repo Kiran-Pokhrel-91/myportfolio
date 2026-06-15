@@ -9,7 +9,7 @@ import 'react-pdf/dist/Page/TextLayer.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-const Resume = () => {
+const Resume = ({ windowKey }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageWidth] = useState(() => Math.min(window.innerWidth * 0.35, 560));
 
@@ -22,7 +22,7 @@ const Resume = () => {
   return (
     <>
       <div id='window-header'>
-        <WindowControls target={WINDOW_KEYS.RESUME} />
+        <WindowControls target={windowKey ?? WINDOW_KEYS.RESUME} />
         <h2>Resume.pdf</h2>
         <a
           href="/files/resume.pdf"

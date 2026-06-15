@@ -1,51 +1,69 @@
 import { techStack, WINDOW_KEYS } from '#constants'
 import WindowControls from '#components/WindowControls'
 import WindowWrapper from '#hoc/WindowWrapper'
-import { Check, Flag } from 'lucide-react'
+import { Check, Cpu, Globe, Database, Code, Wrench, Brain, Terminal as TerminalIcon } from 'lucide-react'
+
+const CATEGORY_ICONS = {
+  Languages: Globe,
+  Frontend: Code,
+  Backend: TerminalIcon,
+  Database: Database,
+  'Data & ML': Brain,
+  'Dev Tools': Wrench,
+}
 
 const Terminal = () => {
+  const totalTechs = techStack.reduce((sum, c) => sum + c.items.length, 0)
+
   return (
     <>
-        <div id='window-header'>
-            <WindowControls target={WINDOW_KEYS.TERMINAL} />
-            <h2>Tech Stack</h2>
+      <div id="window-header">
+        <WindowControls target={WINDOW_KEYS.TERMINAL} />
+        <h2>Skills — techstack</h2>
+      </div>
+
+      <div className="techstack">
+        <div className="term-banner">
+          <span className="prompt-user">kiran</span>
+          <span className="prompt-at">@</span>
+          <span className="prompt-host">portfolio</span>
+          <span className="prompt-sep">:</span>
+          <span className="prompt-path">~</span>
+          <span className="prompt-dollar">$</span>
+          <span className="prompt-cmd"> show tech-stack --all</span>
+          <span className="cursor" />
         </div>
 
-        <div className='techstack'>
-            <p>
-                <span className='font-bold'>@kiran % </span>
-                show tech stack
-            </p>
-
-            <div className='label'>
-                <p className='w-32'>Category</p>
-                <p>Technologies</p>
-            </div>
-
-            <ul className='content'>
-                {techStack.map(({category, items}) => (
-                    <li key={category} className='flex items-center'>
-                        <Check className='check' size={20} />
-                        <h3>{category}</h3>
-                        <ul>
-                            {items.map((item, i) => (
-                                <li key={i}>{item}{i < items.length - 1 ? ',' : ''}</li>
-                            ))}
-                        </ul>
-                    </li>
-                ))}
-            </ul>
-            <div className='footnote'>
-                <p>
-                    <Check size={20} /> 5 of 5 stacks loaded successfully
-                </p>
-
-                <p>
-                    <Flag size={15} fill='black' />
-                    Render time: 6ms
-                </p>
-            </div>
+        <div className="stack-grid">
+          {techStack.map(({ category, items }) => {
+            const Icon = CATEGORY_ICONS[category] || Check
+            return (
+              <div key={category} className="category-card">
+                <div className="category-header">
+                  <Icon size={14} />
+                  <h3>{category}</h3>
+                </div>
+                <div className="tech-items">
+                  {items.map((item, i) => (
+                    <span key={i} className="tech-badge">{item}</span>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
+
+        <div className="term-footer">
+          <span className="flex items-center gap-1.5">
+            <Check size={13} />
+            {techStack.length} categories, {totalTechs} technologies
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Cpu size={12} />
+            6ms
+          </span>
+        </div>
+      </div>
     </>
   )
 }

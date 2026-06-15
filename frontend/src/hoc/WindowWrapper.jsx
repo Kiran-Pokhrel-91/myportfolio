@@ -44,7 +44,7 @@ function animateOpen(el, windowKey) {
   el.style.display = "block";
   el.style.pointerEvents = "auto";
 
-  if (windowKey.includes("-")) {
+  if (windowKey.includes("-") && !windowKey.startsWith("resume")) {
     const main = document.querySelector("main");
     if (main) {
       const mRect = main.getBoundingClientRect();

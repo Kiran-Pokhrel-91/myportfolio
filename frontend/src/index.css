@@ -371,52 +371,82 @@ html[data-theme="dark"] body {
     @apply w-xl absolute top-32 left-1/12 rounded-xl overflow-hidden;
 
     h2 {
-      @apply font-bold text-sm text-center w-full;
+      @apply font-bold text-sm text-center flex-1;
     }
 
     .techstack {
-      @apply text-sm font-roboto p-5;
+      @apply text-sm p-5 space-y-5;
+      font-family: "Roboto Mono", monospace;
+      background-color: color-mix(in srgb, var(--panel-bg) 70%, #000 30%);
 
-      .label {
-        @apply flex items-center ms-10 mt-7;
+      .term-banner {
+        @apply flex items-center flex-wrap gap-0.5;
+        color: var(--panel-muted);
+
+        .prompt-user { @apply text-emerald-500 font-semibold; }
+        .prompt-at   { @apply text-sky-500; }
+        .prompt-host { @apply text-sky-500 font-semibold; }
+        .prompt-sep  { @apply text-slate-500; }
+        .prompt-path { @apply text-amber-400; }
+        .prompt-dollar { @apply text-emerald-400 font-bold; }
+        .prompt-cmd  { @apply text-slate-400; }
+
+        .cursor {
+          @apply inline-block w-2 h-4;
+          background-color: var(--panel-muted);
+          animation: blink 1s step-end infinite;
+        }
       }
 
-      .content {
-        @apply py-5 my-5 space-y-1;
-        border-color: var(--panel-border);
-        border-style: dashed;
-        border-width: 1px 0;
+      .stack-grid {
+        @apply grid grid-cols-2 gap-2.5;
 
-        li {
-          .check {
-            @apply w-5;
-            color: #00A154;
+        .category-card {
+          @apply rounded-lg p-3 space-y-2;
+          background-color: color-mix(in srgb, var(--panel-bg) 60%, transparent);
+          border: 1px solid var(--panel-border);
+          transition: border-color 0.15s, box-shadow 0.15s;
+
+          &:hover {
+            border-color: color-mix(in srgb, var(--panel-text) 30%, transparent);
+            box-shadow: 0 0 0 1px color-mix(in srgb, var(--panel-text) 10%, transparent);
           }
 
-          h3 {
-            @apply font-semibold w-32 ms-5;
-            color: #00A154;
+          .category-header {
+            @apply flex items-center gap-1.5 text-xs font-semibold;
+            color: var(--panel-muted);
+
+            svg { color: var(--panel-muted); }
           }
 
-          ul {
-            @apply flex items-center gap-3;
+          .tech-items {
+            @apply flex flex-wrap gap-1.5;
+
+            .tech-badge {
+              @apply px-2 py-0.5 rounded text-[11px] font-medium leading-relaxed;
+              background-color: color-mix(in srgb, var(--panel-text) 8%, transparent);
+              color: var(--panel-text);
+              transition: background-color 0.15s;
+
+              &:hover {
+                background-color: color-mix(in srgb, var(--panel-text) 18%, transparent);
+              }
+            }
           }
         }
       }
 
-      .footnote {
-        @apply space-y-1;
-        color: #00A154;
-
-        p {
-          @apply flex items-center;
-
-          svg {
-            @apply w-5 me-5;
-          }
-        }
+      .term-footer {
+        @apply flex items-center justify-between text-[11px] pt-2;
+        color: var(--panel-muted);
+        border-top: 1px solid var(--panel-border);
       }
     }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
   #contact {
@@ -491,8 +521,8 @@ html[data-theme="dark"] body {
     }
   }
 
-  #resume {
-    @apply w-fit h-fit absolute top-16 left-7/12  rounded-xl overflow-hidden;
+  [id^="resume"] {
+    @apply w-fit h-fit absolute top-16 right-8 rounded-xl overflow-hidden;
 
     #window-header {
       h2 {

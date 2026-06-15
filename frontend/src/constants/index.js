@@ -76,24 +76,28 @@ const dockApps = [
 
 const techStack = [
   {
-    category: "Frontend",
-    items: ["React.js", "Next.js", "TypeScript"],
+    category: "Languages",
+    items: ["Python", "JavaScript", "HTML", "CSS"],
   },
   {
-    category: "Styling",
-    items: ["Tailwind CSS", "Sass", "CSS"],
+    category: "Frontend",
+    items: ["React", "Tailwind CSS"],
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "NestJS", "Hono"],
+    items: ["Node.js", "Django", "Django REST", "Flask"],
   },
   {
     category: "Database",
-    items: ["MongoDB", "PostgreSQL"],
+    items: ["SQLite", "MySQL"],
+  },
+  {
+    category: "Data & ML",
+    items: ["NumPy", "Pandas", "Scikit-Learn", "TensorFlow", "Matplotlib"],
   },
   {
     category: "Dev Tools",
-    items: ["Git", "GitHub", "Docker"],
+    items: ["Git", "GitHub", "VS Code", "Linux", "Docker", "NGINX"],
   },
 ];
 
@@ -141,7 +145,6 @@ const socials = [
     link: "tel:+9779749897295",
   },
 ];
-
 
 // ── Articles ──────────────────────────────────
 // Uncomment and replace with your own articles:
@@ -200,7 +203,8 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
-          subtitle: "Deep learning-based malaria detection from blood smear images",
+          subtitle:
+            "Deep learning-based malaria detection from blood smear images",
           description: [
             "A deep learning system that classifies blood cell images as malaria-infected or healthy using convolutional neural networks.",
             "Built with TensorFlow and Keras, the model achieves high accuracy on the NIH Malaria dataset. The pipeline includes image preprocessing, data augmentation, transfer learning with pretrained backbones, and a Flask API for serving predictions.",
@@ -234,7 +238,8 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 right-10",
-          subtitle: "A classifieds marketplace platform for local buying and selling",
+          subtitle:
+            "A classifieds marketplace platform for local buying and selling",
           description: [
             "A full-stack classifieds marketplace that connects local buyers and sellers — think Craigslist, but built for Nepal.",
             "Users can post ads with images, browse listings by category, search and filter results, chat with sellers, and manage their own listings through a personal dashboard.",
@@ -268,7 +273,8 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "txt",
           position: "top-5 left-10",
-          subtitle: "A full-featured Trello clone built with React & TypeScript",
+          subtitle:
+            "A full-featured Trello clone built with React & TypeScript",
           description: [
             "A Kanban board application inspired by Trello, built from scratch with React, TypeScript, and Tailwind CSS.",
             "Features include: drag-and-drop cards across columns, board creation and management, real-time collaboration, markdown support in card descriptions, labels, checklists, due dates, and user assignment.",
@@ -379,10 +385,24 @@ const FILETYPE_TO_WINDOW = {
   pdf: WINDOW_KEYS.RESUME,
 };
 
-const windowDefaults = { isOpen: false, isMinimized: false, isMaximized: false, zIndex: INITIAL_Z_INDEX, data: null };
+const windowDefaults = {
+  isOpen: false,
+  isMinimized: false,
+  isMaximized: false,
+  zIndex: INITIAL_Z_INDEX,
+  data: null,
+};
 
 const WINDOW_CONFIG = Object.fromEntries(
   STATIC_WINDOW_KEYS.map((key) => [key, { ...windowDefaults }]),
 );
 
-export { INITIAL_Z_INDEX, NAVBAR_Z_INDEX, DOCK_Z_INDEX, WINDOW_KEYS, STATIC_WINDOW_KEYS, WINDOW_CONFIG, FILETYPE_TO_WINDOW };
+export {
+  INITIAL_Z_INDEX,
+  NAVBAR_Z_INDEX,
+  DOCK_Z_INDEX,
+  WINDOW_KEYS,
+  STATIC_WINDOW_KEYS,
+  WINDOW_CONFIG,
+  FILETYPE_TO_WINDOW,
+};
