@@ -61,6 +61,7 @@ const Finder = () => {
   }, [breadcrumb]);
 
   useEffect(() => {
+    if (window.innerWidth < 640) return;
     const grid = contentRef.current;
     if (!grid) return;
 
