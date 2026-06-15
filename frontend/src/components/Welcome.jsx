@@ -84,7 +84,7 @@ const Welcome = () => {
 
   return (
     <section id="welcome">
-      <section id="mobile-home" className="hidden max-sm:absolute max-sm:top-12 max-sm:left-0 max-sm:z-10 max-sm:block">
+      <section id="mobile-home" className="hidden max-sm:absolute max-sm:top-12 max-sm:left-0 max-sm:z-10 max-sm:block max-sm:mt-4">
         <div className="inline-flex items-center gap-5 ml-4 mt-2 px-4 py-3 rounded-2xl">
           <button className="flex flex-col items-center gap-1" onClick={() => openWindow(WINDOW_KEYS.RESUME)}>
             <img alt="pages" src="/images/pdf.png" className="size-14" />
