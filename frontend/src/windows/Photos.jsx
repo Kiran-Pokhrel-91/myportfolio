@@ -1,59 +1,35 @@
+import { photosLinks, WINDOW_KEYS } from '#constants';
 import WindowControls from '#components/WindowControls';
-import { gallery, photosLinks, WINDOW_KEYS } from '#constants';
 import WindowWrapper from '#hoc/WindowWrapper';
-import useWindowStore from '#store/window';
-import { ImageIcon, Mail, Search } from 'lucide-react';
+import { ExternalLink, MoveRight } from 'lucide-react';
 
 const Photos = () => {
-  const {openWindow} = useWindowStore();
   return (
     <>
       <div id='window-header'>
-        <WindowControls target={WINDOW_KEYS.PHOTOS} />
-        <div className='w-full flex justify-end items-center gap-3'>
-          <Mail className='icon' />
-          <Search className='icon' />
-        </div>
+        <WindowControls target={WINDOW_KEYS.PHOTOS} title="Gallery" />
       </div>
 
-      <div className='flex w-full h-full'>
-        <div className='sidebar'>
-          <h2>Photos</h2>
-          <ul>
-            {photosLinks.length > 0 ? (
-              photosLinks.map(({id, icon, title}) => (
-                <li key={id}>
-                  <img src={icon} alt={title} />
-                  <p>{title}</p>
-                </li>
-              ))
-            ) : (
-              <li className="opacity-40 text-xs px-3 py-6 text-center">
-                Yet to be updated
-              </li>
-            )}
-          </ul>
-        </div>
-
-        <div className='gallery'>
-          {gallery.length > 0 ? (
-            <ul>
-              {gallery.map(({id, img}) => (
-                <li key={id} onClick={() => openWindow(WINDOW_KEYS.IMAGE, {
-                  id, name: "Gallery image", icon: "/images/image.png",
-                  kind: "file", fileType: "img", imageUrl: img,
-                })}>
-                  <img src={img} alt={`Gallery ${id}`} />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full text-center py-20 space-y-3">
-              <ImageIcon size={40} className="opacity-20" />
-              <p className="text-sm opacity-50">Photos yet to be updated</p>
-            </div>
-          )}
-        </div>
+      <div className="blog">
+        <h2>Gallery</h2>
+        {photosLinks.length > 0 ? (
+          <div className="space-y-8">
+            {photosLinks.map(({id, title, date, link}) => (
+              <div key={id} className="blog-post">
+                <div className="content">
+                  <p>{date}</p>
+                  <h3>{title}</h3>
+                  <a href={link} target="_blank" rel="noopener noreferrer">View album <MoveRight className="icon" /></a>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 space-y-3">
+            <ExternalLink size={32} className="opacity-20 mx-auto" />
+            <p className="text-sm opacity-50">Gallery yet to be updated</p>
+          </div>
+        )}
       </div>
     </>
   )

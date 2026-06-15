@@ -14,8 +14,7 @@ const ImageContent = ({ windowKey }) => {
   return (
     <>
       <div id="window-header">
-        <WindowControls target={windowKey} />
-        <h2>{name}</h2>
+        <WindowControls target={windowKey} title={name} />
       </div>
 
       <div className="p-5">

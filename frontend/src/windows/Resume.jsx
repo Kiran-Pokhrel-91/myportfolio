@@ -11,7 +11,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 
 const Resume = ({ windowKey }) => {
   const [numPages, setNumPages] = useState(null);
-  const [pageWidth] = useState(() => Math.min(window.innerWidth * 0.35, 560));
+  const [pageWidth] = useState(() =>
+    window.innerWidth < 640
+      ? Math.min(window.innerWidth * 0.9, 400)
+      : Math.min(window.innerWidth * 0.35, 560)
+  );
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -22,16 +26,7 @@ const Resume = ({ windowKey }) => {
   return (
     <>
       <div id='window-header'>
-        <WindowControls target={windowKey ?? WINDOW_KEYS.RESUME} />
-        <h2>Resume.pdf</h2>
-        <a
-          href="/files/resume.pdf"
-          download
-          className="icon"
-          title="Download Resume"
-        >
-          <Download />
-        </a>
+        <WindowControls target={windowKey ?? WINDOW_KEYS.RESUME} title="Resume" />
       </div>
 
       <div

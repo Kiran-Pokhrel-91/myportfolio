@@ -18,8 +18,7 @@ const Terminal = () => {
   return (
     <>
       <div id="window-header">
-        <WindowControls target={WINDOW_KEYS.TERMINAL} />
-        <h2>Skills — techstack</h2>
+        <WindowControls target={WINDOW_KEYS.TERMINAL} title="Skills" />
       </div>
 
       <div className="techstack">
