@@ -265,12 +265,11 @@ html[data-theme="dark"] body {
   }
 
   .window-panel {
-    @apply isolate will-change-transform;
+    isolation: isolate;
     background-color: var(--panel-bg);
     color: var(--panel-text);
     border: 1px solid var(--panel-border);
     backdrop-filter: blur(var(--panel-blur));
-    -webkit-backdrop-filter: blur(var(--panel-blur));
     box-shadow: 0 16px 64px #0000002e, 0 0 0 1px #0000000a inset;
     user-select: none;
   }
