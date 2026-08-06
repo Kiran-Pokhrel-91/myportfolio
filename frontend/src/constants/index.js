@@ -88,27 +88,13 @@ const socials = [
   },
   {
     id: 3,
-    text: "Instagram",
-    icon: "/icons/instagram.svg",
-    bg: "#e1306c",
-    link: "https://www.instagram.com/kiran_pokhrel_07/",
-  },
-  {
-    id: 4,
     text: "LinkedIn",
     icon: "/icons/linkedin.svg",
     bg: "#0a66c2",
-    link: "https://www.linkedin.com/in/kiran-pokhrel-91/",
+    link: "https://www.linkedin.com/in/kiranpokhrel07/",
   },
   {
-    id: 5,
-    text: "Facebook",
-    icon: "/icons/facebook.svg",
-    bg: "#1877f2",
-    link: "https://www.facebook.com/kiran.pokhrel.1253",
-  },
-  {
-    id: 6,
+    id: 4,
     text: "Phone",
     icon: "/icons/phone.svg",
     bg: "#34b7f1",
@@ -154,7 +140,7 @@ export {
 const WORK_LOCATION = {
   id: 1,
   type: "work",
-  name: "Work",
+  name: "Projects",
   icon: "/icons/work.svg",
   kind: "folder",
   children: [
@@ -176,10 +162,10 @@ const WORK_LOCATION = {
           subtitle:
             "Deep learning-based malaria detection from blood smear images",
           description: [
-            "A deep learning system that classifies blood cell images as malaria-infected or healthy using convolutional neural networks.",
-            "Built with TensorFlow and Keras, the model achieves high accuracy on the NIH Malaria dataset. The pipeline includes image preprocessing, data augmentation, transfer learning with pretrained backbones, and a Flask API for serving predictions.",
-            "Features: automated blood smear analysis, batch prediction, confidence scoring, and a simple web interface for uploading and visualizing results.",
-            "Tech stack: Python, TensorFlow, Flask, OpenCV, NumPy, Pandas, and Jupyter Notebooks for experimentation.",
+            "An intelligent diagnostic system that leverages convolutional neural networks to classify blood cell images as malaria-infected or healthy — achieving medical-grade accuracy on the NIH Malaria dataset.",
+            "The end-to-end pipeline encompasses image preprocessing, data augmentation, transfer learning with pretrained backbones (MobileNetV2, EfficientNet), and a RESTful Flask API for real-time inference.",
+            "Key capabilities include automated blood smear analysis, batch prediction with confidence scoring, and a clean web interface for uploading images and visualizing classification results in real-time.",
+            "Engineered with Python, TensorFlow/Keras, Flask, OpenCV, NumPy, Pandas, and Jupyter Notebooks for iterative experimentation and model optimization.",
           ],
         },
         {
@@ -209,12 +195,12 @@ const WORK_LOCATION = {
           fileType: "txt",
           position: "top-5 right-10",
           subtitle:
-            "A classifieds marketplace platform for local buying and selling",
+            "A full-stack classifieds marketplace for local buying and selling",
           description: [
-            "A full-stack classifieds marketplace that connects local buyers and sellers — think Craigslist, but built for Nepal.",
-            "Users can post ads with images, browse listings by category, search and filter results, chat with sellers, and manage their own listings through a personal dashboard.",
-            "Built with React on the frontend and Node.js/Express on the backend, with MongoDB for flexible data storage. Authentication handled via JWT, and images are uploaded to Cloudinary for optimized delivery.",
-            "Features include: user authentication, ad creation with image upload, category-based browsing, search with keyword and filters, seller chat, responsive design, and pagination.",
+            "A comprehensive classifieds platform purpose-built for the Nepali market — connecting local buyers and sellers through an intuitive, Craigslist-style experience.",
+            "Users can create rich listings with image galleries, browse by category, apply granular search filters, communicate with sellers via in-app messaging, and manage their portfolio through a personal dashboard.",
+            "Built with a modern React frontend and Node.js/Express backend, backed by MongoDB for flexible document storage. JWT-based authentication, Cloudinary-powered image optimization, and responsive design ensure a polished experience across all devices.",
+            "Implemented features: user registration & auth, ad creation with multi-image upload, category-based browsing, keyword search with advanced filters, real-time seller chat, responsive layouts, and infinite scroll pagination.",
           ],
         },
         {
@@ -244,12 +230,12 @@ const WORK_LOCATION = {
           fileType: "txt",
           position: "top-5 left-10",
           subtitle:
-            "A full-featured Trello clone built with React & TypeScript",
+            "A production-grade Kanban board built with React & TypeScript",
           description: [
-            "A Kanban board application inspired by Trello, built from scratch with React, TypeScript, and Tailwind CSS.",
-            "Features include: drag-and-drop cards across columns, board creation and management, real-time collaboration, markdown support in card descriptions, labels, checklists, due dates, and user assignment.",
-            "Built with a modern stack: React + TypeScript for the frontend, Node.js/Express for the API, and PostgreSQL for persistence. Drag-and-drop powered by dnd-kit for a smooth, accessible experience.",
-            "Fully responsive — works seamlessly on desktop and mobile browsers. Deployed with CI/CD pipeline and containerized via Docker.",
+            "A fully-featured project management tool inspired by Trello, architected from the ground up with React, TypeScript, and Tailwind CSS for type safety and maintainability.",
+            "Core features include fluid drag-and-drop across columns, board creation and management, markdown-enabled card descriptions, labels, checklists with progress tracking, due dates, user assignment, and collaborative real-time updates.",
+            "The tech stack leverages React + TypeScript (frontend), Node.js/Express (API layer), and PostgreSQL (persistence). Drag-and-drop interactions are powered by dnd-kit for an accessible, performant experience.",
+            "Fully responsive across all breakpoints, with a CI/CD deployment pipeline and Docker containerization for reproducible builds and zero-downtime deployments.",
           ],
         },
         {
@@ -261,15 +247,6 @@ const WORK_LOCATION = {
           href: "https://github.com/Kiran-Pokhrel-91/Trello",
           position: "top-10 right-20",
         },
-        // {
-        //   id: 3,
-        //   name: "trello-screenshot.png",
-        //   icon: "/images/image.png",
-        //   kind: "file",
-        //   fileType: "img",
-        //   position: "top-5 left-52",
-        //   imageUrl: "",
-        // },
       ],
     },
   ],
@@ -278,7 +255,7 @@ const WORK_LOCATION = {
 const ABOUT_LOCATION = {
   id: 2,
   type: "about",
-  name: "About me",
+  name: "About Me",
   icon: "/icons/info.svg",
   kind: "folder",
   children: [
@@ -289,12 +266,12 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "txt",
       position: "top-10 left-5",
-      subtitle: "About Me",
+      subtitle: "Software Developer & Problem Solver",
       description: [
-        "Hey! I'm Kiran 👋, a web developer who enjoys building sleek, interactive websites that actually work well.",
-        "I specialize in JavaScript, React, and Next.js—and I love making things feel smooth, fast, and just a little bit delightful.",
-        "I'm big on clean UI, good UX, and writing code that doesn't need a search party to debug.",
-        "Outside of dev work, you'll find me tweaking layouts at 2AM, sipping overpriced coffee, or impulse-buying gadgets I absolutely convinced myself I needed 😅",
+        "I'm Kiran Pokhrel — a software developer driven by curiosity and craft. I build web applications that are fast, accessible, and genuinely enjoyable to use.",
+        "My toolkit centers on JavaScript, React, and TypeScript on the frontend, with Node.js, Django, and Flask powering the backend. I believe great software lives at the intersection of clean architecture and thoughtful design.",
+        "What sets me apart is my obsession with details: the micro-interaction that makes a UI feel alive, the edge case that prevents a bug at 3AM, the performance optimization that shaves 200ms off load time. I don't just write code — I engineer experiences.",
+        "When I'm not shipping features, you'll find me exploring open-source projects, experimenting with machine learning pipelines, or diving into system design. I'm always learning, always building, always improving."
       ],
     },
   ],

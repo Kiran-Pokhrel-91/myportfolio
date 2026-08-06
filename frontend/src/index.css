@@ -6,21 +6,23 @@
 :root {
   --page-text: #f8fafc;
   --page-muted: #cbd5e1;
-  --nav-bg: #ffffff80;
-  --nav-text: #111827;
-  --panel-bg: #ffffffb8;
-  --panel-border: #94a3b840;
+  --nav-bg: #ffffffcc;
+  --nav-text: #0f172a;
+  --panel-bg: #ffffffd6;
+  --panel-border: #94a3b866;
   --panel-text: #0f172a;
-  --panel-muted: #475569;
-  --dock-bg: #ffffff26;
-  --dock-border: #ffffff33;
-  --dock-shadow: #0f172a47;
-  --tooltip-bg: #bfdbfe;
+  --panel-muted: #334155;
+  --dock-bg: #ffffff33;
+  --dock-border: #ffffff55;
+  --dock-shadow: #0f172a55;
+  --tooltip-bg: #dbeafe;
   --tooltip-text: #1e3a8a;
-  --menu-bg: #ffffffeb;
-  --menu-border: #94a3b83d;
+  --menu-bg: #ffffffee;
+  --menu-border: #94a3b866;
   --menu-text: #0f172a;
-  --menu-active: #2563eb1a;
+  --menu-active: #2563eb22;
+  --accent: #2563eb;
+  --accent-light: #3b82f6;
   color-scheme: light;
   --page-bg: #0f172a;
   --panel-blur: 200px;
@@ -30,22 +32,24 @@
 
 [data-theme="dark"] {
   --page-text: #f8fafc;
-  --page-muted: #cbd5e1;
-  --nav-bg: #1e293bb8;
-  --nav-text: #f8fafc;
-  --panel-bg: #1e293bc7;
-  --panel-border: #94a3b83d;
+  --page-muted: #94a3b8;
+  --nav-bg: #1e293bcc;
+  --nav-text: #f1f5f9;
+  --panel-bg: #1e293bda;
+  --panel-border: #33415566;
   --panel-text: #f1f5f9;
-  --panel-muted: #cbd5e1;
-  --dock-bg: #1e293ba8;
-  --dock-border: #ffffff29;
-  --dock-shadow: #02061773;
-  --tooltip-bg: #1e293beb;
+  --panel-muted: #94a3b8;
+  --dock-bg: #1e293bb8;
+  --dock-border: #33415544;
+  --dock-shadow: #02061780;
+  --tooltip-bg: #1e293bf5;
   --tooltip-text: #f8fafc;
-  --menu-bg: #1e293bf0;
-  --menu-border: #94a3b842;
-  --menu-text: #f8fafc;
-  --menu-active: #7dd3fc2e;
+  --menu-bg: #1e293bf5;
+  --menu-border: #33415555;
+  --menu-text: #f1f5f9;
+  --menu-active: #3b82f633;
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
   color-scheme: dark;
   --page-bg: #0f172a;
   --panel-blur: 200px;
@@ -156,7 +160,7 @@ html[data-theme="dark"] body {
   #welcome {
     @apply flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10;
     color: var(--page-text);
-
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
   }
 
   #dock {
@@ -167,13 +171,14 @@ html[data-theme="dark"] body {
       @apply flex items-end gap-2 rounded-[28px] px-4 py-3 backdrop-blur-2xl;
       background-color: var(--dock-bg);
       border: 1px solid var(--dock-border);
-      box-shadow: 0 24px 80px var(--dock-shadow);
+      box-shadow: 0 24px 80px var(--dock-shadow), 0 0 0 1px rgba(255,255,255,0.08) inset;
     }
 
     .tooltip {
-      @apply py-1 px-3 w-fit text-center text-xs rounded-md shadow-2xl;
+      @apply py-1.5 px-3 w-fit text-center text-xs rounded-lg shadow-xl font-medium;
       background-color: var(--tooltip-bg);
       color: var(--tooltip-text);
+      border: 1px solid color-mix(in srgb, var(--tooltip-text) 15%, transparent);
     }
 
     .dock-item {
@@ -183,6 +188,11 @@ html[data-theme="dark"] body {
 
     .dock-icon {
       @apply flex size-14 items-center justify-center rounded-2xl border border-transparent outline-none cursor-pointer 3xl:size-20;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+
+      &:hover {
+        border-color: rgba(255,255,255,0.2);
+      }
 
       img {
         @apply size-full object-contain drop-shadow-lg;
@@ -205,6 +215,7 @@ html[data-theme="dark"] body {
     background-color: var(--menu-bg);
     border-color: var(--menu-border);
     color: var(--menu-text);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05) inset;
   }
 
   .theme-option {
@@ -212,9 +223,13 @@ html[data-theme="dark"] body {
     color: var(--menu-text);
   }
 
-  .theme-option:hover,
+  .theme-option:hover {
+    background-color: var(--menu-active);
+  }
+
   .theme-option.is-active {
     background-color: var(--menu-active);
+    font-weight: 500;
   }
 
   html[data-theme="dark"] nav img.icon-hover {
@@ -259,7 +274,7 @@ html[data-theme="dark"] body {
 
   #window-header {
     @apply flex items-center justify-between px-4 py-3 rounded-t-lg select-none text-sm;
-    background-color: color-mix(in srgb, var(--panel-bg) 70%, transparent);
+    background-color: color-mix(in srgb, var(--panel-bg) 80%, transparent);
     border-bottom: 1px solid var(--panel-border);
     color: var(--panel-muted);
   }
@@ -270,7 +285,7 @@ html[data-theme="dark"] body {
     color: var(--panel-text);
     border: 1px solid var(--panel-border);
     backdrop-filter: blur(var(--panel-blur));
-    box-shadow: 0 16px 64px #0000002e, 0 0 0 1px #0000000a inset;
+    box-shadow: 0 20px 70px #00000038, 0 0 0 1px #0000000d inset;
     user-select: none;
   }
 
@@ -297,7 +312,7 @@ html[data-theme="dark"] body {
   }
 
   .window-panel-sub {
-    background-color: color-mix(in srgb, var(--panel-bg) 60%, transparent);
+    background-color: color-mix(in srgb, var(--panel-bg) 70%, transparent);
     border-color: var(--panel-border);
   }
 
@@ -367,17 +382,17 @@ html[data-theme="dark"] body {
         @apply flex items-center flex-wrap gap-0.5;
         color: var(--panel-muted);
 
-        .prompt-user { @apply text-emerald-500 font-semibold; }
-        .prompt-at   { @apply text-sky-500; }
-        .prompt-host { @apply text-sky-500 font-semibold; }
-        .prompt-sep  { @apply text-slate-500; }
-        .prompt-path { @apply text-amber-400; }
-        .prompt-dollar { @apply text-emerald-400 font-bold; }
-        .prompt-cmd  { @apply text-slate-400; }
+        .prompt-user { @apply text-emerald-400 font-semibold; }
+        .prompt-at   { @apply text-sky-400; }
+        .prompt-host { @apply text-sky-400 font-semibold; }
+        .prompt-sep  { @apply text-slate-400; }
+        .prompt-path { @apply text-amber-300; }
+        .prompt-dollar { @apply text-emerald-300 font-bold; }
+        .prompt-cmd  { @apply text-slate-300; }
 
         .cursor {
-          @apply inline-block w-2 h-4;
-          background-color: var(--panel-muted);
+          @apply inline-block w-2.5 h-4;
+          background-color: var(--accent-light);
           animation: blink 1s step-end infinite;
         }
       }
@@ -387,33 +402,34 @@ html[data-theme="dark"] body {
 
         .category-card {
           @apply rounded-lg p-3 space-y-2;
-          background-color: color-mix(in srgb, var(--panel-bg) 60%, transparent);
+          background-color: color-mix(in srgb, var(--panel-bg) 65%, transparent);
           border: 1px solid var(--panel-border);
-          transition: border-color 0.15s, box-shadow 0.15s;
+          transition: all 0.2s ease;
 
           &:hover {
-            border-color: color-mix(in srgb, var(--panel-text) 30%, transparent);
-            box-shadow: 0 0 0 1px color-mix(in srgb, var(--panel-text) 10%, transparent);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent), 0 4px 12px color-mix(in srgb, var(--accent) 10%, transparent);
+            transform: translateY(-1px);
           }
 
           .category-header {
             @apply flex items-center gap-1.5 text-xs font-semibold;
-            color: var(--panel-muted);
-
-            svg { color: var(--panel-muted); }
+            color: var(--panel-text);
           }
 
           .tech-items {
             @apply flex flex-wrap gap-1.5;
 
             .tech-badge {
-              @apply px-2 py-0.5 rounded text-[11px] font-medium leading-relaxed;
-              background-color: color-mix(in srgb, var(--panel-text) 8%, transparent);
+              @apply px-2.5 py-1 rounded-md text-[11px] font-medium leading-relaxed;
+              background-color: color-mix(in srgb, var(--panel-text) 10%, transparent);
               color: var(--panel-text);
-              transition: background-color 0.15s;
+              transition: all 0.15s ease;
 
               &:hover {
-                background-color: color-mix(in srgb, var(--panel-text) 18%, transparent);
+                background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+                color: var(--accent);
+                transform: translateY(-1px);
               }
             }
           }
@@ -438,7 +454,7 @@ html[data-theme="dark"] body {
 
     .content {
       li {
-        @apply rounded-xl transition-transform duration-200 hover:scale-105 hover:-translate-y-0.5;
+        @apply rounded-xl;
         cursor: pointer;
       }
     }
@@ -506,11 +522,11 @@ html[data-theme="dark"] body {
 
     .sidebar {
       @apply w-48 flex flex-col p-5 space-y-3;
-      background-color: color-mix(in srgb, var(--panel-bg) 50%, transparent);
+      background-color: color-mix(in srgb, var(--panel-bg) 60%, transparent);
       border-right: 1px solid var(--panel-border);
 
       h3 {
-        @apply text-xs font-medium mb-1;
+        @apply text-xs font-semibold mb-1 uppercase tracking-wider;
         color: var(--panel-muted);
       }
 
@@ -518,14 +534,16 @@ html[data-theme="dark"] body {
         @apply space-y-1;
 
         .active {
-          background-color: color-mix(in srgb, var(--panel-text) 12%, transparent);
+          background-color: color-mix(in srgb, var(--accent) 15%, transparent);
           color: var(--panel-text);
+          font-weight: 500;
         }
 
         .not-active {
           color: var(--panel-muted);
           &:hover {
-            background-color: color-mix(in srgb, var(--panel-text) 8%, transparent);
+            background-color: color-mix(in srgb, var(--panel-text) 10%, transparent);
+            color: var(--panel-text);
           }
         }
 
@@ -543,10 +561,10 @@ html[data-theme="dark"] body {
           @apply flex flex-wrap content-start gap-3 p-3;
 
           li {
-            @apply flex flex-col items-center gap-1.5 p-2 size-24 h-28 cursor-grab rounded-xl transition-colors;
+            @apply flex flex-col items-center gap-1.5 p-2 size-24 h-28 cursor-grab rounded-xl transition-all;
 
             &:hover {
-              background-color: color-mix(in srgb, var(--panel-text) 8%, transparent);
+              background-color: color-mix(in srgb, var(--accent) 10%, transparent);
             }
 
             .finder-item {
@@ -554,11 +572,17 @@ html[data-theme="dark"] body {
 
               img {
                 @apply size-10 object-contain pointer-events-none;
+                transition: transform 0.15s ease;
               }
 
               .item-name {
                 @apply text-xs text-center font-medium leading-tight w-full line-clamp-2;
+                color: var(--panel-text);
               }
+            }
+
+            &:hover .finder-item img {
+              transform: scale(1.08);
             }
           }
         }
@@ -664,8 +688,12 @@ html[data-theme="dark"] body {
 
 html[data-theme="dark"] {
   #window-header {
-    background-color: color-mix(in srgb, var(--panel-bg) 90%, transparent);
-    border-color: var(--panel-border);
+    background-color: color-mix(in srgb, var(--panel-bg) 85%, transparent);
+    border-bottom-color: color-mix(in srgb, var(--panel-border) 120%, transparent);
+  }
+
+  .sidebar {
+    border-right-color: color-mix(in srgb, var(--panel-border) 120%, transparent);
   }
 }
 

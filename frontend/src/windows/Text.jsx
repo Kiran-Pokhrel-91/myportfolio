@@ -11,7 +11,10 @@ const TextContent = ({ windowKey }) => {
 
   const { name, image, subtitle, description } = data;
 
-  const hasContent = subtitle || (Array.isArray(description) && description.length > 0);
+  const hasContent =
+    subtitle ||
+    (Array.isArray(description) &&
+      description.length > 0);
 
   return (
     <>
@@ -32,7 +35,8 @@ const TextContent = ({ windowKey }) => {
               <h3 className="subtitle">{subtitle}</h3>
             ) : null}
 
-            {Array.isArray(description) && description.length > 0 ? (
+            {Array.isArray(description) &&
+            description.length > 0 ? (
               <div className="description">
                 {description.map((para, idx) => (
                   <p key={idx}>{para}</p>
@@ -46,7 +50,10 @@ const TextContent = ({ windowKey }) => {
   );
 };
 
-const TextWindow = WindowWrapper(TextContent, WINDOW_KEYS.TEXT);
+const TextWindow = WindowWrapper(
+  TextContent,
+  WINDOW_KEYS.TEXT
+);
 
 export default TextWindow;
 export { TextContent };
