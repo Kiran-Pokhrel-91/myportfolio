@@ -49,11 +49,11 @@ const Home = () => {
     });
   }, [])
   return (
-    <section id='home'>
+    <section id='home' aria-label="Project folders">
         <ul>
             {projects.map((project) => (
                 <li onClick={() => handleOpenProjectFinder(project)} key={project.id} className={clsx("group folder", project.windowPosition)} style={{ cursor: "grab", userSelect: "none" }}>
-                    <img src="/images/folder.png" alt={project.name} />
+                    <img src="/images/folder.png" alt={`${project.name} project folder`} loading="lazy" />
                     <p>{project.name}</p>
                 </li>
             ))}

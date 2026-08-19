@@ -45,7 +45,7 @@ const Terminal = () => {
         />
       </div>
 
-      <div className="techstack">
+      <div className="techstack" role="region" aria-label="Technical skills and technologies">
         <div className="term-banner">
           <span className="prompt-user">kiran</span>
           <span className="prompt-at">@</span>
@@ -57,9 +57,10 @@ const Terminal = () => {
             {" "}
             show tech-stack --all --verbose
           </span>
-          <span className="cursor" />
+          <span className="cursor" aria-hidden="true" />
         </div>
 
+        <h2 className="sr-only">Technical Skills</h2>
         <div className="stack-grid">
           {techStack.map(({ category, items }) => {
             const Icon =

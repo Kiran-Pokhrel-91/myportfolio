@@ -152,7 +152,7 @@ const Welcome = () => {
   }, []);
 
   return (
-    <section id="welcome" ref={containerRef}>
+    <section id="welcome" ref={containerRef} aria-label="Welcome">
       <section
         id="mobile-home"
         className="hidden max-sm:absolute max-sm:top-12 max-sm:left-0 max-sm:z-10 max-sm:block max-sm:mt-4"
@@ -163,11 +163,13 @@ const Welcome = () => {
             onClick={() =>
               openWindow(WINDOW_KEYS.RESUME)
             }
+            aria-label="Open Resume"
           >
             <img
-              alt="pages"
+              alt="Resume PDF icon"
               src="/images/pdf.png"
               className="size-14"
+              loading="lazy"
             />
             <span className="text-[11px] font-semibold text-[var(--nav-text)]">
               Resume
@@ -178,11 +180,13 @@ const Welcome = () => {
             onClick={() =>
               openWindow(WINDOW_KEYS.TERMINAL)
             }
+            aria-label="Open Skills"
           >
             <img
-              alt="terminal"
+              alt="Terminal skills icon"
               src="/images/terminal.png"
               className="size-16"
+              loading="lazy"
             />
             <span className="text-[11px] font-semibold text-[var(--nav-text)]">
               Skills
@@ -191,9 +195,20 @@ const Welcome = () => {
         </div>
       </section>
 
+      {/* Hidden SEO content for crawlers - renders readable text */}
+      <noscript>
+        <h1>Kiran Pokhrel — Software Developer Portfolio</h1>
+        <p>
+          Welcome to the portfolio of Kiran Pokhrel, a full-stack software developer
+          specializing in React, Node.js, Django, Python, and machine learning with TensorFlow.
+          Explore projects, skills, and get in touch.
+        </p>
+      </noscript>
+
       <p
         ref={subtitleRef}
         className="max-sm:mt-0 text-white/90"
+        aria-hidden="true"
       >
         {renderText(
           "Hey, I'm Kiran! Welcome to my",
@@ -201,7 +216,7 @@ const Welcome = () => {
           100
         )}
       </p>
-      <h1 ref={titleRef} className="mt-5 sm:mt-7">
+      <h1 ref={titleRef} className="mt-5 sm:mt-7" aria-hidden="true">
         {renderText(
           "Portfolio",
           "text-5xl sm:text-7xl lg:text-9xl font-bold italic font-georama tracking-tight text-white"

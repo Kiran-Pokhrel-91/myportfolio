@@ -47,27 +47,27 @@ const dockApps = [
 const techStack = [
   {
     category: "Languages",
-    items: ["Python", "JavaScript", "HTML", "CSS"],
+    items: ["JavaScript", "TypeScript", "Python", "HTML5", "CSS3"],
   },
   {
     category: "Frontend",
-    items: ["React", "Tailwind CSS"],
+    items: ["React", "Next.js", "Tailwind CSS", "GSAP", "Zustand"],
   },
   {
     category: "Backend",
-    items: ["Node.js", "Django", "Django REST", "Flask"],
+    items: ["Node.js", "Express.js", "Django", "Django REST Framework", "Flask", "REST APIs"],
   },
   {
     category: "Database",
-    items: ["SQLite", "MySQL"],
+    items: ["PostgreSQL", "MongoDB", "SQLite", "MySQL"],
   },
   {
     category: "Data & ML",
-    items: ["NumPy", "Pandas", "Scikit-Learn", "TensorFlow", "Matplotlib"],
+    items: ["TensorFlow", "Scikit-Learn", "NumPy", "Pandas", "Matplotlib"],
   },
   {
-    category: "Dev Tools",
-    items: ["Git", "GitHub", "VS Code", "Linux", "Docker", "NGINX"],
+    category: "DevOps & Tools",
+    items: ["Git", "GitHub", "Docker", "NGINX", "Linux", "VS Code", "Vite", "CI/CD"],
   },
 ];
 
@@ -266,7 +266,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "txt",
       position: "top-10 left-5",
-      subtitle: "Software Developer & Problem Solver",
+      subtitle: "Full-Stack Software Developer & Machine Learning Engineer",
       description: [
         "I'm Kiran Pokhrel — a software developer driven by curiosity and craft. I build web applications that are fast, accessible, and genuinely enjoyable to use.",
         "My toolkit centers on JavaScript, React, and TypeScript on the frontend, with Node.js, Django, and Flask powering the backend. I believe great software lives at the intersection of clean architecture and thoughtful design.",

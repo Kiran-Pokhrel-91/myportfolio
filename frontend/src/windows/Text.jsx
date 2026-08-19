@@ -32,12 +32,12 @@ const TextContent = ({ windowKey }) => {
         {hasContent ? (
           <div className="text-content">
             {subtitle ? (
-              <h3 className="subtitle">{subtitle}</h3>
+              <h3 className="subtitle" id={`text-subtitle-${windowKey}`}>{subtitle}</h3>
             ) : null}
 
             {Array.isArray(description) &&
             description.length > 0 ? (
-              <div className="description">
+              <div className="description" aria-labelledby={subtitle ? `text-subtitle-${windowKey}` : undefined}>
                 {description.map((para, idx) => (
                   <p key={idx}>{para}</p>
                 ))}

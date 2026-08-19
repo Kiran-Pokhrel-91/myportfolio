@@ -16,12 +16,12 @@ const Contact = () => {
       <div className="content px-8 pt-8 pb-6 space-y-6">
         <div className="flex flex-col items-center text-center gap-3">
           <div className="relative size-24 rounded-full">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-md opacity-40" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 blur-md opacity-40" aria-hidden="true" />
             <div className="relative size-full rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-0.5">
               <img
                 className="size-full rounded-full object-cover"
                 src="/images/me.jpeg"
-                alt="Kiran Pokhrel"
+                alt="Kiran Pokhrel — Software Developer"
               />
             </div>
           </div>

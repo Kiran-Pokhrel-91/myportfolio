@@ -69,7 +69,7 @@ const Navbar = () => {
 
   if (isMobile) {
     return (
-      <nav className="grid grid-cols-3 items-center h-12 bg-[var(--nav-bg)] backdrop-blur-2xl px-4">
+      <nav className="grid grid-cols-3 items-center h-12 bg-[var(--nav-bg)] backdrop-blur-2xl px-4" aria-label="Main navigation">
         <time className="text-[12px] font-bold tracking-wider text-[var(--nav-text)]">
           {dayjs().format("h:mm A")}
         </time>
@@ -102,10 +102,10 @@ const Navbar = () => {
   }
 
   return (
-    <nav>
+    <nav aria-label="Main navigation">
       <div>
         <img src="/images/logo.svg" alt="Logo" />
-        <p className="font-bold italic">
+        <p className="font-bold italic" aria-label="Kiran's Portfolio">
           Kiran's Portfolio
         </p>
 

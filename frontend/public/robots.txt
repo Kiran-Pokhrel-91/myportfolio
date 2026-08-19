@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kiranpokhrel.me/sitemap.xml
+
+# Disallow internal paths that don't need indexing
+Disallow: /assets/
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /

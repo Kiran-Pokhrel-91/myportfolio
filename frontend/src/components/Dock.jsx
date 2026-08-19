@@ -149,8 +149,8 @@ const Dock = () => {
   }
 
   return (
-    <section id="dock">
-      <div ref={dockRef} className="dock-container">
+    <section id="dock" aria-label="Application dock">
+      <div ref={dockRef} className="dock-container" role="toolbar" aria-label="Open applications">
         {dockApps.map(({ id, name, icon, canOpen }) => {
           const open = canOpen && windows[id]?.isOpen;
 

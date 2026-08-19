@@ -29,14 +29,14 @@ const WindowControls = ({ target, title, onGoBack }) => {
   }
 
   return (
-    <div id="window-controls">
-      <button className="close group" type="button" onClick={(e) => { e.stopPropagation(); closeWindow(target); }}>
+    <div id="window-controls" role="group" aria-label="Window controls">
+      <button className="close group" type="button" aria-label="Close window" onClick={(e) => { e.stopPropagation(); closeWindow(target); }}>
         <X size={10} color="#4a0000" strokeWidth={3} className="opacity-0 group-hover:opacity-100 transition-opacity" />
       </button>
-      <button className="minimize group" type="button" onClick={(e) => { e.stopPropagation(); minimizeWindow(target); }}>
+      <button className="minimize group" type="button" aria-label="Minimize window" onClick={(e) => { e.stopPropagation(); minimizeWindow(target); }}>
         <Minimize2 size={10} color="#8a6a00" strokeWidth={3} className="opacity-0 group-hover:opacity-100 transition-opacity" />
       </button>
-      <button className="maximize group" type="button" onClick={(e) => { e.stopPropagation(); maximizeWindow(target); }}>
+      <button className="maximize group" type="button" aria-label={isMaximized ? "Restore window" : "Maximize window"} onClick={(e) => { e.stopPropagation(); maximizeWindow(target); }}>
         {isMaximized ? (
           <Minimize2 size={10} color="#005a00" strokeWidth={3} className="opacity-0 group-hover:opacity-100 transition-opacity" />
         ) : (

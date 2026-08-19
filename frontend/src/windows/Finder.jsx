@@ -125,7 +125,7 @@ const Finder = () => {
       <div id="window-header">
         <WindowControls
           target="finder"
-          title="Files"
+          title="Projects & Files"
           onGoBack={goBack}
         />
         <div className="hidden sm:flex items-center ml-auto mr-3">
@@ -175,7 +175,7 @@ const Finder = () => {
       </div>
 
       <div className="flex">
-        <div className="sidebar">
+        <div className="sidebar" aria-label="File browser sidebar">
           <h3>Favorites</h3>
           <ul>
             {Object.values(locations).map((item) => (
